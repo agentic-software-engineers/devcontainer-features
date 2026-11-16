@@ -12,7 +12,7 @@
     "features": {
       "python": {
         "version": "3.15.2",
-        "uvVersion": "0.13.7"
+        "uvVersion": "0.13.8"
       }
     }
   },
