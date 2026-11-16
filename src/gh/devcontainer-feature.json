@@ -1,0 +1,71 @@
+{
+  "id": "gh",
+  "version": "1.0.0",
+  "name": "gh (GitHub CLI)",
+  "description": "Installs the official GitHub CLI as a single binary.",
+  "documentationURL": "https://github.com/hansehart/devcontainer-features/tree/main/src/gh",
+  "options": {
+    "version": {
+      "type": "string",
+      "default": "latest",
+      "description": "Channel (latest) or an exact version (major.minor.patch)."
+    },
+    "stateDir": {
+      "type": "string",
+      "default": "",
+      "description": "If set, puts this feature's data at this path, which must be inside the remote user's home. Mount a volume there to persist it across rebuilds."
+    }
+  },
+  "customizations": {
+    "o3s": {
+      "hosts": [
+        {
+          "name": "github.com",
+          "ports": [
+            443
+          ],
+          "description": "Sign-in"
+        },
+        {
+          "name": "api.github.com",
+          "ports": [
+            443
+          ],
+          "secret": "GH_TOKEN",
+          "description": "The REST and GraphQL APIs"
+        },
+        {
+          "name": "uploads.github.com",
+          "ports": [
+            443
+          ],
+          "secret": "GH_TOKEN",
+          "description": "Release asset uploads"
+        }
+      ],
+      "env": [
+        {
+          "name": "GH_TELEMETRY",
+          "value": "false",
+          "description": "With false, telemetry stays off"
+        },
+        {
+          "name": "GH_NO_UPDATE_NOTIFIER",
+          "value": "1",
+          "description": "With any value, the daily release check stays off"
+        },
+        {
+          "name": "GH_NO_EXTENSION_UPDATE_NOTIFIER",
+          "value": "1",
+          "description": "With any value, the extension release checks stay off"
+        },
+        {
+          "name": "GH_CONFIG_DIR",
+          "value": "${stateDir}",
+          "description": "gh's config and sign-in in the state dir"
+        }
+      ]
+    }
+  },
+  "postCreateCommand": "/usr/local/libexec/gh/init.sh"
+}
