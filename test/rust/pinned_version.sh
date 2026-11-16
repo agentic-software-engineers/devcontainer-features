@@ -4,7 +4,7 @@ set -e
 # Import the test library
 source dev-container-features-test-lib
 
-RUST="1.99.1"
+RUST="1.100.0"
 RUSTUP="1.29.3"
 
 check "rust pinned to $RUST" bash -lc "rustc --version | grep -qwF '$RUST'"
