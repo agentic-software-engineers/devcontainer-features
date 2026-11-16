@@ -22,6 +22,7 @@
 ## Tests
 
 - **Layout** gives each feature `test/<feature>/`, with `test.sh` for the default install and `scenarios.json` for the rest, each scenario checked by the script of its name.
+- **Architectures** amd64 and arm64 are each tested on a runner of their own, with every test.
 - **Options** are each tested at least once with a non-default value.
 - **Versions** are tested by one `pinned_version` scenario with the newest releases, the companion programs pinned beside the main one.
 - **State** is tested by a `state_dir` scenario that sets `stateDir` to `/home/ubuntu/.local/state/<feature-id>`, a nested path whose missing folders the guard creates for the dev user, with `remoteUser: ubuntu`.
