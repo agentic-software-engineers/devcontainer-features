@@ -17,7 +17,7 @@ init_main() {
   STATE_DIR=""
   if [ -r "$record" ]; then STATE_DIR="$(cat "$record")"; fi
   # Read the feature's settings.
-  # shellcheck disable=SC1090  # each feature writes its own profile
+  # shellcheck source=/dev/null  # each feature writes its own profile
   if [ -r "$profile" ]; then . "$profile"; fi
   if [ -n "$STATE_DIR" ]; then
     mkdir -p "$STATE_DIR"
