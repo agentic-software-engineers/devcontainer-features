@@ -143,6 +143,18 @@
     },
     {
       "customType": "regex",
+      "description": "Keep the pinned GitHub CLI release in its test on the newest release.",
+      "managerFilePatterns": [
+        "/^test/gh/scenarios\\.json$/",
+        "/^test/gh/pinned_version\\.sh$/"
+      ],
+      "matchStrings": ["(?:^|[^\\d.])(?<currentValue>\\d+\\.\\d+\\.\\d+)(?:[^\\d.]|$)"],
+      "datasourceTemplate": "github-releases",
+      "depNameTemplate": "cli/cli",
+      "extractVersionTemplate": "^v(?<version>.+)$"
+    },
+    {
+      "customType": "regex",
       "description": "Keep the pinned Go release in its test on the newest release.",
       "managerFilePatterns": [
         "/^test/go/scenarios\\.json$/",
