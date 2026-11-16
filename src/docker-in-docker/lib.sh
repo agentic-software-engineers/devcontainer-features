@@ -47,15 +47,20 @@ arch_name() {
 
 # Resolve the requested version to the exact release it names.
 release_tag() {
-  local host="$1" repo="$2" version="$3" bare="${4:-}" api tag
+  local host="$1" repo="$2" version="$3" bare="${4:-}" site location tag
   if [ "$version" = latest ]; then
-    if [ "$host" = github ]; then
-      api="${_FEATURE_TEST_API:-https://api.github.com}"
-    else
-      api="${_FEATURE_TEST_API:-https://$host}/api/v1"
-    fi
-    tag="$(curl -fsSL "$api/repos/$repo/releases/latest" | grep -oP '"tag_name":\s*"\K[^"]+' || true)"
-    [ -n "$tag" ] || die "could not resolve the latest version"
+    # Name GitHub by its address, as every other host is named.
+    if [ "$host" = github ]; then host=github.com; fi
+    # Reach the host's release pages, or the tests' own server when they name one.
+    if [ -n "${_FEATURE_TEST_WEB:-}" ]; then site="$_FEATURE_TEST_WEB/$host"; else site="https://$host"; fi
+    # Read where the latest release page redirects, without following it.
+    location="$(curl -fsSI -o /dev/null -w '%{redirect_url}' "$site/$repo/releases/latest" || true)"
+    case "$location" in
+      # Take the tag from the release page the redirect names.
+      */releases/tag/?*) tag="${location##*/releases/tag/}" ;;
+      # Stop on a missing repo, or one without releases.
+      *) die "could not resolve the latest version" ;;
+    esac
     if [ "$bare" = --bare ]; then printf '%s' "${tag#v}"; else printf '%s' "$tag"; fi
   elif [ "$bare" = --bare ]; then
     printf '%s' "${version#v}"
