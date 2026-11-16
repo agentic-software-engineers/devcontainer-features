@@ -3,7 +3,7 @@
     "image": "ubuntu:24.04",
     "features": {
       "codex": {
-        "version": "0.167.1"
+        "version": "0.169.0"
       }
     }
   },
