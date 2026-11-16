@@ -47,20 +47,17 @@ arch_name() {
 
 # Resolve the requested version to the exact release it names.
 release_tag() {
-  local host="$1" repo="$2" version="$3" bare="${4:-}" site location tag
+  local host="$1" repo="$2" version="$3" bare="${4:-}" remote tag
   if [ "$version" = latest ]; then
     # Name GitHub by its address, as every other host is named.
     if [ "$host" = github ]; then host=github.com; fi
-    # Reach the host's release pages, or the tests' own server when they name one.
-    if [ -n "${_FEATURE_TEST_WEB:-}" ]; then site="$_FEATURE_TEST_WEB/$host"; else site="https://$host"; fi
-    # Read where the latest release page redirects, without following it.
-    location="$(curl -fsSI -o /dev/null -w '%{redirect_url}' "$site/$repo/releases/latest" || true)"
-    case "$location" in
-      # Take the tag from the release page the redirect names.
-      */releases/tag/?*) tag="${location##*/releases/tag/}" ;;
-      # Stop on a missing repo, or one without releases.
-      *) die "could not resolve the latest version" ;;
-    esac
+    # Reach the host's repo, or the tests' own copy when they name one.
+    if [ -n "${_FEATURE_TEST_GIT:-}" ]; then remote="$_FEATURE_TEST_GIT/$host/$repo"; else remote="https://$host/$repo"; fi
+    command -v git >/dev/null || die "resolving the latest version needs git among the packages"
+    # Take the newest plain release tag, leaving pre-releases and peeled entries aside.
+    tag="$(GIT_TERMINAL_PROMPT=0 git ls-remote --tags "$remote" 2>/dev/null \
+      | grep -oE 'refs/tags/v?[0-9]+\.[0-9]+\.[0-9]+$' | sed 's#^refs/tags/##' | sort -V | tail -n1 || true)"
+    [ -n "$tag" ] || die "could not resolve the latest version"
     if [ "$bare" = --bare ]; then printf '%s' "${tag#v}"; else printf '%s' "$tag"; fi
   elif [ "$bare" = --bare ]; then
     printf '%s' "${version#v}"

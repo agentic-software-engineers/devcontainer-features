@@ -8,6 +8,8 @@ VERSION="$(option VERSION latest)"
 
 # Accept only options in the feature's format, before anything is installed.
 require_version '^(latest|v?[0-9]+\.[0-9]+\.[0-9]+)$'
+# Resolve the latest release from the project's git tags.
+PACKAGES+=(git)
 
 # Resolve the request to a release and its asset.
 resolve_version() {

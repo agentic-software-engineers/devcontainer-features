@@ -13,6 +13,8 @@ require_version '^(latest|v?[0-9]+\.[0-9]+\.[0-9]+)$' "$NVM_VERSION" nvmVersion
 
 # Run the Node builds, which link against this shared library.
 PACKAGES+=(libatomic1)
+# Resolve the latest release from the project's git tags.
+PACKAGES+=(git)
 
 # Resolve nvm's release, and the Node request nvm resolves and verifies itself.
 resolve_version() {
