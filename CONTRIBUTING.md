@@ -22,6 +22,8 @@
 ## Tests
 
 - **Layout** gives each feature `test/<feature>/`, with `test.sh` for the default install and `scenarios.json` for the rest, each scenario checked by the script of its name.
+- **Names** state the behavior under test, a comment above each test repeats it as a sentence, and fixtures take the names RFC 2606 and RFC 5737 reserve for examples, the same name wherever a fixture plays the same part.
+- **Bodies** check one behavior each, in setup, action and check set apart by blank lines.
 - **Architectures** amd64 and arm64 are each tested on a runner of their own, with every test.
 - **Options** are each tested at least once with a non-default value.
 - **Versions** are tested by one `pinned_version` scenario with the newest releases, the companion programs pinned beside the main one.
