@@ -34,7 +34,7 @@
 - **Features** all run through the shared library in `lib/`, which `lib/sync.sh` copies into each feature, since a feature can only ship its own files. CI checks that the copies match their source, and a library change reaches every feature that carries the changed file.
 - **Installs** run `install.sh`, which names the feature, reads its options with `option`, adds its apt packages to `PACKAGES`, defines its own steps, then calls `feature_main`. The sequence claims the state dir, installs the packages, resolves, downloads and verifies the release, installs the program, writes the profile, the settings and the hooks, and confirms the program runs.
 - **Steps** `resolve_version` and `install_program` are required and set the release and put the program in place. The optional `profile`, `settings`, `post_install` and `confirm` add profile lines, recorded settings, feature-specific work and a custom version check.
-- **Values** reach a command as plain data: every feature declares exactly one of `checksums`, `checksum`, `unverified` or `delegated`, the last two with the reason the build log shows, and `require_version` and the state-dir guard check each option where `install.sh` reads it.
+- **Values** reach a command as plain data: every feature declares exactly one of `checksums`, `checksum`, `unverified` or `delegated`, the last two with the reason the build log shows, and `require_version` and the state-dir guard check each option where `install.sh` reads it. A feature whose oldest releases it cannot install names the oldest it can in `MIN_VERSION`, which the sequence checks against the resolved release before downloading.
 - **Hooks** start in `init.sh`, which sources `hook.sh`, defines what it prepares in `init_state`, then calls `init_main <feature>`. The shared part reads the recorded state dir and the profile, creates the state dir, and warns when it sits on the container filesystem.
 
 ## Layout
@@ -49,7 +49,7 @@
 
 - **Options** choose what gets installed and where its data lives, each of one kind below, listed with `version` first, then `stateDir` if the feature has one, then the rest alphabetically.
 - **Defaults** come from each tool itself and the o3s metadata hardens them, and the tool reads its config from the files the o3s metadata names.
-- **Version** picks the feature's main program through `version`, and a companion program's release through `<program>Version`. Each takes `latest`, a release line (`major` or `major.minor`) or an exact version, wherever the tool's versions have those parts, resolved to an exact release before installing and logged, and the description names the forms with placeholders, such as `major.minor.patch`.
+- **Version** picks the feature's main program through `version`, and a companion program's release through `<program>Version`. Each takes `latest`, a release line (`major` or `major.minor`) or an exact version, wherever the tool's versions have those parts, resolved to an exact release before installing and logged, and the description names the forms with placeholders, such as `major.minor.patch`, and the oldest release the feature installs when it names one.
 - **State** lives in `stateDir`, which is opt-in, must be inside the remote user's home, and is meant to sit on a volume. The feature checks the path at build time, and its create hook creates the dir and warns when it sits on the container filesystem.
 - **Feature-specific** options cover whatever is unique to the tool, and a list is a comma-separated string with a plural name.
 

@@ -15,7 +15,7 @@
         "stable"
       ],
       "default": "latest",
-      "description": "Channel (beta|canary|dev|latest|stable) or an exact version (major.minor.build.patch)."
+      "description": "Channel (beta|canary|dev|latest|stable) or an exact version (major.minor.build.patch), from 120.0.6098.0 on, and 153.0.8001.0 on arm64."
     }
   },
   "customizations": {
