@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.2.0](https://github.com/hansehart/devcontainer-features/compare/headless-chrome-1.1.0...headless-chrome-1.2.0) (2026-11-17)
+
+
+### Features
+
+* **headless-chrome:** install the arm64 build on arm64 machines ([#185](https://github.com/hansehart/devcontainer-features/issues/185)) ([29895c1](https://github.com/hansehart/devcontainer-features/commit/29895c16b4f583e94c54d128bbfc50769a00a9d6))
+* **lib:** resolve release lines from the tag list ([#193](https://github.com/hansehart/devcontainer-features/issues/193)) ([fe2a8ce](https://github.com/hansehart/devcontainer-features/commit/fe2a8ceb0eff23a3283189ea41cf3ebeb9e32cff))
+
+
+### Bug Fixes
+
+* **lib:** resolve the latest release from git tags ([#192](https://github.com/hansehart/devcontainer-features/issues/192)) ([24e988e](https://github.com/hansehart/devcontainer-features/commit/24e988eb0cdfaa959d04f8c713a778f04d8fe333))
+
 ## [1.1.0](https://github.com/hansehart/devcontainer-features/compare/headless-chrome-1.0.9...headless-chrome-1.1.0) (2026-11-09)
 
 
