@@ -10,6 +10,8 @@ UV_VERSION="$(option UVVERSION latest)"
 # Accept only options in the feature's format, before anything is installed.
 require_version '^(latest|3\.[0-9]+(\.[0-9]+)?)$'
 require_version '^(latest|v?[0-9]+\.[0-9]+\.[0-9]+)$' "$UV_VERSION" uvVersion
+# Resolve the latest release from the project's git tags.
+PACKAGES+=(git)
 
 # Resolve uv's release, its archive and its checksum, and the Python uv installs.
 resolve_version() {

@@ -47,14 +47,16 @@ arch_name() {
 
 # Resolve the requested version to the exact release it names.
 release_tag() {
-  local host="$1" repo="$2" version="$3" bare="${4:-}" api tag
+  local host="$1" repo="$2" version="$3" bare="${4:-}" remote tag
   if [ "$version" = latest ]; then
-    if [ "$host" = github ]; then
-      api="${_FEATURE_TEST_API:-https://api.github.com}"
-    else
-      api="${_FEATURE_TEST_API:-https://$host}/api/v1"
-    fi
-    tag="$(curl -fsSL "$api/repos/$repo/releases/latest" | grep -oP '"tag_name":\s*"\K[^"]+' || true)"
+    # Name GitHub by its address, as every other host is named.
+    if [ "$host" = github ]; then host=github.com; fi
+    # Reach the host's repo, or the tests' own copy when they name one.
+    if [ -n "${_FEATURE_TEST_GIT:-}" ]; then remote="$_FEATURE_TEST_GIT/$host/$repo"; else remote="https://$host/$repo"; fi
+    command -v git >/dev/null || die "resolving the latest version needs git among the packages"
+    # Take the newest plain release tag, leaving pre-releases and peeled entries aside.
+    tag="$(GIT_TERMINAL_PROMPT=0 git ls-remote --tags "$remote" 2>/dev/null \
+      | grep -oE 'refs/tags/v?[0-9]+\.[0-9]+\.[0-9]+$' | sed 's#^refs/tags/##' | sort -V | tail -n1 || true)"
     [ -n "$tag" ] || die "could not resolve the latest version"
     if [ "$bare" = --bare ]; then printf '%s' "${tag#v}"; else printf '%s' "$tag"; fi
   elif [ "$bare" = --bare ]; then

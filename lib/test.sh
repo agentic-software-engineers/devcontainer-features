@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Tests for the shared install sequence: each case writes a small feature into a sandbox and runs
-# it the way the dev container CLI runs a feature, with releases, checksums and the release API
-# served from local files.
+# it the way the dev container CLI runs a feature, with releases and checksums served from local
+# files, and the releases' tags from local repos.
 set -uo pipefail
 
 LIB="$(cd "$(dirname "$0")" && pwd)/lib.sh"
@@ -12,12 +12,23 @@ failed=0
 SANDBOXES=()
 trap 'rm -rf "${SANDBOXES[@]}"' EXIT
 
+# Give a host's repo in the sandbox the named tags, each on a commit of its own.
+tags() {
+  local dir="$SANDBOX/git/$1/$2" tag
+  shift 2
+  git init -q "$dir"
+  for tag in "$@"; do
+    git -C "$dir" -c user.name=test -c user.email=test@example.com commit -q --allow-empty -m "$tag"
+    git -C "$dir" tag "$tag"
+  done
+}
+
 # Build a sandbox with a fake release, fake system tools and an empty install root.
 sandbox() {
   SANDBOX="$(mktemp -d)"
   SANDBOXES+=("$SANDBOX")
   mkdir -p "$SANDBOX/bin" "$SANDBOX/feature" "$SANDBOX/root" "$SANDBOX/release/v1.2.3" \
-    "$SANDBOX/api/repos/acme/tool/releases" "$SANDBOX/pkg/tool-v1.2.3"
+    "$SANDBOX/pkg/tool-v1.2.3"
   # Package manager and machine name, recorded and faked.
   printf '#!/bin/sh\necho "$*" >> "%s/apt.log"\n' "$SANDBOX" > "$SANDBOX/bin/apt-get"
   printf '#!/bin/sh\necho "${FAKE_ARCH:-x86_64}"\n' > "$SANDBOX/bin/uname"
@@ -38,7 +49,8 @@ z = zipfile.ZipFile(sys.argv[1], "w")
 i = zipfile.ZipInfo("tool-linux64/tool"); i.external_attr = 0o755 << 16
 z.writestr(i, open(sys.argv[2]).read()); z.close()' \
     "$SANDBOX/release/v1.2.3/tool-linux64.zip" "$SANDBOX/pkg/tool-v1.2.3/tool"
-  printf '{"tag_name": "v1.2.3"}\n' > "$SANDBOX/api/repos/acme/tool/releases/latest"
+  # The tool's tags: an older release, the newest one, and a pre-release beyond it.
+  tags github.com acme/tool v0.9.0 v1.2.3 v1.10.0-rc.1
   cp "$LIB" "$SANDBOX/feature/lib.sh"
 }
 
@@ -56,7 +68,7 @@ feature() {
 
 # Run the feature like the CLI does, with the sandbox's tools and paths.
 run() {
-  env PATH="$SANDBOX/bin:$PATH" _FEATURE_TEST_ROOT="$SANDBOX/root" _FEATURE_TEST_API="file://$SANDBOX/api" \
+  env PATH="$SANDBOX/bin:$PATH" _FEATURE_TEST_ROOT="$SANDBOX/root" _FEATURE_TEST_GIT="$SANDBOX/git" \
     REL="file://$SANDBOX/release" "$@" bash "$SANDBOX/feature/install.sh" > "$SANDBOX/out" 2>&1
 }
 
@@ -100,16 +112,29 @@ sandbox; feature <<<"$(standard); echo \"l=\$(release_tag github acme/tool lates
 run
 check "release_tag resolves latest, prefixes exact versions and keeps bare ones bare" has "l=v1.2.3 e=v2.0.0 v=v2.0.0 b=2.0.0 w=2.0.0"
 
-sandbox; mkdir -p "$SANDBOX/api/api/v1/repos/acme/tool/releases"
-printf '{"tag_name": "v9.9.9"}\n' > "$SANDBOX/api/api/v1/repos/acme/tool/releases/latest"
+sandbox; tags gitea.example acme/tool v9.9.9
 feature <<<"$(standard); echo \"g=\$(release_tag gitea.example acme/tool latest)\"; exit 0"
 run
-check "release_tag reads a Gitea host through its API path" has "g=v9.9.9"
+check "release_tag reads a Gitea host's tags" has "g=v9.9.9"
+
+sandbox; tags github.com acme/sorted v1.9.0 v1.10.0
+feature <<<"$(standard); echo \"s=\$(release_tag github acme/sorted latest)\"; exit 0"
+run
+check "release_tag orders tags by version, not by text" has "s=v1.10.0"
+
+sandbox; tags github.com acme/untagged
+feature <<<"$(standard); release_tag github acme/untagged latest"
+run
+check "a repo without release tags stops the resolve" has "tool: could not resolve the latest version"
+
+sandbox; feature <<<"$(standard); release_tag github acme/missing latest"
+run
+check "a missing repo stops the resolve" has "tool: could not resolve the latest version"
 
 sandbox; mkdir -p "$SANDBOX/elsewhere"; feature <<<"$(standard)
 feature_main"
 run FEATURE_ROOT="$SANDBOX/elsewhere" RELEASE_API="file:///nowhere"
-check "the install root and release API come from the test settings alone" bash -c "[ -x '$SANDBOX/root/usr/local/bin/tool' ] && [ -z \"\$(ls -A '$SANDBOX/elsewhere')\" ]"
+check "the install root and release tags come from the test settings alone" bash -c "[ -x '$SANDBOX/root/usr/local/bin/tool' ] && [ -z \"\$(ls -A '$SANDBOX/elsewhere')\" ]"
 
 # --- the sequence ----------------------------------------------------------------------
 
