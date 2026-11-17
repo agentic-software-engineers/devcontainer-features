@@ -131,6 +131,27 @@ sandbox; feature <<<"$(standard); release_tag github acme/missing latest"
 run
 check "a missing repo stops the resolve" has "tool: could not resolve the latest version"
 
+# --- release lines and tag prefixes -------------------------------------------------------
+
+sandbox; tags github.com acme/lines v1.2.0 v1.2.9 v1.9.0 v1.10.0 v1.3.0-rc.1 v2.0.0
+feature <<<"$(standard); echo \"m=\$(release_tag github acme/lines 1) n=\$(release_tag github acme/lines 1.2) o=\$(release_tag github acme/lines 2) b=\$(release_tag github acme/lines 1.2 --bare)\"; exit 0"
+run
+check "release_tag resolves a major and a minor line to their newest release" has "m=v1.10.0 n=v1.2.9 o=v2.0.0 b=1.2.9"
+
+sandbox; tags github.com acme/lines v1.2.0 v1.3.0-rc.1
+feature <<<"$(standard); release_tag github acme/lines 1.3"
+run
+check "a line holding pre-releases alone stops the resolve" has "tool: no release in the 1.3 line"
+
+sandbox; tags github.com acme/prefixed rust-v0.168.0 rust-v0.169.0 v9.0.0 other-v1.0.0
+feature <<<"$(standard); echo \"l=\$(release_tag github acme/prefixed latest --prefix rust-) b=\$(release_tag github acme/prefixed latest --bare --prefix rust-) n=\$(release_tag github acme/prefixed 0.168 --prefix rust- --bare)\"; exit 0"
+run
+check "release_tag reads only the tags behind a prefix" has "l=rust-v0.169.0 b=0.169.0 n=0.168.0"
+
+sandbox; feature <<<"$(standard); echo \"e=\$(release_tag github acme/missing 2.0.0) p=\$(release_tag github acme/missing 0.169.0 --prefix rust-) b=\$(release_tag github acme/missing v0.169.0 --prefix rust- --bare)\"; exit 0"
+run
+check "an exact version needs no remote, with or without a prefix" has "e=v2.0.0 p=rust-v0.169.0 b=0.169.0"
+
 sandbox; mkdir -p "$SANDBOX/elsewhere"; feature <<<"$(standard)
 feature_main"
 run FEATURE_ROOT="$SANDBOX/elsewhere" RELEASE_API="file:///nowhere"

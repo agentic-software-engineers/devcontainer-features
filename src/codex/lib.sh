@@ -45,24 +45,48 @@ arch_name() {
   die "unsupported architecture '$machine'"
 }
 
-# Resolve the requested version to the exact release it names.
+# Resolve the requested version to the exact release it names: the latest release, the newest of
+# a release line (major or major.minor), or an exact version as given.
 release_tag() {
-  local host="$1" repo="$2" version="$3" bare="${4:-}" remote tag
-  if [ "$version" = latest ]; then
+  local host="$1" repo="$2" version="${3#v}" bare="" prefix="" remote tags tag
+  shift 3
+  # Read the switches: the number alone, and the text the project's tags start with.
+  while [ "$#" -gt 0 ]; do
+    case "$1" in
+      # Print the version without the prefix and the v.
+      --bare) bare=1 ;;
+      # Read only the tags behind the given text.
+      --prefix) prefix="$2"; shift ;;
+      # Stop on a switch the library does not know.
+      *) die "unknown release_tag switch '$1'" ;;
+    esac
+    shift
+  done
+  # Name an exact version's tag directly, and look up the latest release or a line remotely.
+  if [ "$version" != latest ] && ! [[ "$version" =~ ^[0-9]+(\.[0-9]+)?$ ]]; then
+    tag="${prefix}v$version"
+  else
     # Name GitHub by its address, as every other host is named.
     if [ "$host" = github ]; then host=github.com; fi
     # Reach the host's repo, or the tests' own copy when they name one.
     if [ -n "${_FEATURE_TEST_GIT:-}" ]; then remote="$_FEATURE_TEST_GIT/$host/$repo"; else remote="https://$host/$repo"; fi
     command -v git >/dev/null || die "resolving the latest version needs git among the packages"
-    # Take the newest plain release tag, leaving pre-releases and peeled entries aside.
-    tag="$(GIT_TERMINAL_PROMPT=0 git ls-remote --tags "$remote" 2>/dev/null \
-      | grep -oE 'refs/tags/v?[0-9]+\.[0-9]+\.[0-9]+$' | sed 's#^refs/tags/##' | sort -V | tail -n1 || true)"
-    [ -n "$tag" ] || die "could not resolve the latest version"
-    if [ "$bare" = --bare ]; then printf '%s' "${tag#v}"; else printf '%s' "$tag"; fi
-  elif [ "$bare" = --bare ]; then
-    printf '%s' "${version#v}"
+    # Keep the plain release tags behind the prefix, leaving pre-releases and peeled entries aside.
+    tags="$(GIT_TERMINAL_PROMPT=0 git ls-remote --tags "$remote" 2>/dev/null \
+      | grep -oE "refs/tags/${prefix}v?[0-9]+\.[0-9]+\.[0-9]+$" | sed 's#^refs/tags/##' || true)"
+    # Narrow the tags to the requested line, when one is named.
+    if [ "$version" != latest ]; then tags="$(grep -E "^${prefix}v?${version//./\\.}\." <<<"$tags" || true)"; fi
+    tag="$(sort -V <<<"$tags" | tail -n1)"
+    # Name what is missing: the latest release, or a release in the line.
+    if [ -z "$tag" ] && [ "$version" = latest ]; then die "could not resolve the latest version"; fi
+    [ -n "$tag" ] || die "no release in the $version line"
+  fi
+  # Print the tag, or its number alone.
+  if [ -n "$bare" ]; then
+    tag="${tag#"$prefix"}"
+    printf '%s' "${tag#v}"
   else
-    printf 'v%s' "${version#v}"
+    printf '%s' "$tag"
   fi
 }
 
