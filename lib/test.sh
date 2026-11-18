@@ -1079,9 +1079,7 @@ described() {
 # A description equal to its README line passes.
 sandbox; repo="$SANDBOX/repo"; described tool "A tool for examples." "A tool for examples."
 
-bash "$(dirname "$LIB")/readme-check.sh" "$repo" > "$SANDBOX/out" 2>&1
-
-check "a description equal to its README line passes" bash -c "grep -qx '1 features checked' '$SANDBOX/out'"
+check "a description equal to its README line passes" bash -c "bash '$(dirname "$LIB")/readme-check.sh' '$repo' > '$SANDBOX/out' 2>&1 && grep -qx '1 features checked' '$SANDBOX/out'"
 
 # A description that differs from its README line is named.
 sandbox; repo="$SANDBOX/repo"; described tool "A tool." "A tool for examples."
