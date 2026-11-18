@@ -12,7 +12,7 @@ readme = root / "README.md"
 # Read each row's description by the feature id its image names.
 rows = {}
 for line in (readme.read_text() if readme.exists() else "").splitlines():
-    match = re.match(r"\| \*\*.+?\*\* \| (.+?) \| `ghcr\.io/hansehart/devcontainer-features/([a-z0-9-]+)` \|", line)
+    match = re.match(r"\| [^|]+ \| (.+?) \| `ghcr\.io/hansehart/devcontainer-features/([a-z0-9-]+)` \|", line)
     # Keep the rows that name a feature's image.
     if match:
         rows[match.group(2)] = match.group(1)
