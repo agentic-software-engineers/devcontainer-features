@@ -394,9 +394,9 @@ cp "$(dirname "$LIB")/hook.sh" "$SANDBOX/feature/hook.sh"
 feature <<<"$(standard)
 feature_main"
 
-run STATEDIR=/home/u/tool
+run STATEDIR=/home/ubuntu/.local/state/tool
 
-check "a set state dir is claimed first" has "claimed tool /home/u/tool"
+check "a set state dir is claimed first" has "claimed tool /home/ubuntu/.local/state/tool"
 
 # The hooks land in libexec.
 sandbox; printf '#!/bin/sh\necho "claimed $1 $2"\n' > "$SANDBOX/feature/state-dir.sh"
@@ -405,7 +405,7 @@ cp "$(dirname "$LIB")/hook.sh" "$SANDBOX/feature/hook.sh"
 feature <<<"$(standard)
 feature_main"
 
-run STATEDIR=/home/u/tool
+run STATEDIR=/home/ubuntu/.local/state/tool
 
 check "the hooks land in libexec" bash -c "[ -x '$SANDBOX/root/usr/local/libexec/tool/init.sh' ] && [ -x '$SANDBOX/root/usr/local/libexec/tool/state-dir.sh' ]"
 
@@ -416,7 +416,7 @@ cp "$(dirname "$LIB")/hook.sh" "$SANDBOX/feature/hook.sh"
 feature <<<"$(standard)
 feature_main"
 
-run STATEDIR=/home/u/tool
+run STATEDIR=/home/ubuntu/.local/state/tool
 
 check "the shared hook lands beside them" bash -c "[ -f '$SANDBOX/root/usr/local/libexec/tool/hook.sh' ]"
 
@@ -427,15 +427,15 @@ cp "$(dirname "$LIB")/hook.sh" "$SANDBOX/feature/hook.sh"
 feature <<<"$(standard)
 feature_main"
 
-run STATEDIR=/home/u/tool
+run STATEDIR=/home/ubuntu/.local/state/tool
 
-check "the state dir is recorded for the hook" bash -c "[ \"\$(cat '$SANDBOX/root/usr/local/etc/tool/state-dir')\" = /home/u/tool ]"
+check "the state dir is recorded for the hook" bash -c "[ \"\$(cat '$SANDBOX/root/usr/local/etc/tool/state-dir')\" = /home/ubuntu/.local/state/tool ]"
 
 # A state dir names the guard the feature needs.
 sandbox; feature <<<"$(standard)
 feature_main"
 
-run STATEDIR=/home/u/tool
+run STATEDIR=/home/ubuntu/.local/state/tool
 
 check "a state dir names the guard the feature needs" has "tool: a state dir needs state-dir.sh in the feature"
 
@@ -631,7 +631,7 @@ sandbox; feature <<<"$(delegating)
 confirm() { :; }
 feature_main"
 
-run _REMOTE_USER=dev
+run _REMOTE_USER=ubuntu
 
 check "a delegated download needs no release file" has "installed by the vendor installer"
 
@@ -640,7 +640,7 @@ sandbox; feature <<<"$(delegating)
 confirm() { :; }
 feature_main"
 
-run _REMOTE_USER=dev
+run _REMOTE_USER=ubuntu
 
 check "a delegated download states its reason" has "tool: delegating the download: the vendor installer checks its own download"
 
@@ -649,9 +649,9 @@ sandbox; feature <<<"$(delegating)
 confirm() { :; }
 feature_main"
 
-run _REMOTE_USER=dev
+run _REMOTE_USER=ubuntu
 
-check "as_user runs the command as the dev user" grep -qxF "as dev: echo installed by the vendor installer" "$SANDBOX/su.log"
+check "as_user runs the command as the dev user" grep -qxF "as ubuntu: echo installed by the vendor installer" "$SANDBOX/su.log"
 
 # A delegated download with a second declaration stops.
 sandbox; feature <<<"$(delegating | sed 's#delegated="the vendor installer checks its own download"#delegated="x"; checksums="y"#')
@@ -853,7 +853,7 @@ claim() {
   printf '#!/bin/sh\necho "$*" >> "%s/runuser.log"\nshift 3\nexec "$@"\n' "$SANDBOX" > "$SANDBOX/bin/runuser"
   chmod +x "$SANDBOX/bin/chown" "$SANDBOX/bin/runuser"
   mkdir -p "$SANDBOX/home"
-  env PATH="$SANDBOX/bin:$PATH" _REMOTE_USER=dev _REMOTE_USER_HOME="$SANDBOX/home" \
+  env PATH="$SANDBOX/bin:$PATH" _REMOTE_USER=ubuntu _REMOTE_USER_HOME="$SANDBOX/home" \
     bash "$(dirname "$LIB")/state-dir.sh" tool "$SANDBOX/home/$1" > "$SANDBOX/out" 2>&1
 }
 
@@ -863,14 +863,14 @@ sandbox; mkdir -p "$SANDBOX/home/.local"
 claim .local/state/tool
 
 check "the dev user creates a nested state dir and the folders above it" \
-  grep -qx -- "-u dev -- mkdir -p $SANDBOX/home/.local/state/tool" "$SANDBOX/runuser.log"
+  grep -qx -- "-u ubuntu -- mkdir -p $SANDBOX/home/.local/state/tool" "$SANDBOX/runuser.log"
 
 # The state dir is handed to the dev user.
 sandbox; mkdir -p "$SANDBOX/home/.local"
 
 claim .local/state/tool
 
-check "the state dir is handed to the dev user" grep -qx "dev: $SANDBOX/home/.local/state/tool" "$SANDBOX/chown.log"
+check "the state dir is handed to the dev user" grep -qx "ubuntu: $SANDBOX/home/.local/state/tool" "$SANDBOX/chown.log"
 
 # The folders above the state dir stay open to read.
 sandbox; mkdir -p "$SANDBOX/home/.local"
