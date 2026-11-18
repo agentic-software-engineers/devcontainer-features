@@ -253,6 +253,14 @@ install_hooks() {
   record state-dir "$STATE_DIR"
 }
 
+# Stop on a release older than the oldest the feature installs, before anything is downloaded.
+check_floor() {
+  local version="${tag#v}"
+  [ -n "${MIN_VERSION:-}" ] || return 0
+  [ "$(printf '%s\n' "$MIN_VERSION" "$version" | sort -V | head -n1)" = "$MIN_VERSION" ] \
+    || die "$version is older than $MIN_VERSION, the oldest release this feature installs"
+}
+
 # Run a part the feature may define, when it does.
 optional() {
   if declare -F "$1" >/dev/null; then "$1"; fi
@@ -268,6 +276,7 @@ feature_main() {
   apt_install "${PACKAGES[@]}"
   tag="" url="" asset="" checksums="" checksum="" unverified="" delegated=""
   resolve_version
+  check_floor
   # Name the requested version beside the release only when the two differ.
   if [ -n "$VERSION" ] && [ "$VERSION" != "$tag" ]; then
     log "installing $tag ($VERSION)"
@@ -290,4 +299,4 @@ feature_main() {
 readonly -f option log die arch_name release_tag apt_install untar unpack link_bin write_file record as_user \
   require_version \
   install_bin claim_state_dir check_digest \
-  download_release write_profile install_hooks optional feature_main
+  download_release check_floor write_profile install_hooks optional feature_main

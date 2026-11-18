@@ -984,5 +984,68 @@ sandbox; repo="$SANDBOX/repo"; mkdir -p "$repo/src/bare"; echo '{ "id": "bare" }
 
 check "the o3s check asks every feature for a section" bash -c "! bash '$(dirname "$LIB")/o3s-check.sh' '$repo' > '$SANDBOX/out' 2>&1 && grep -qF 'src/bare: needs an o3s section' '$SANDBOX/out'"
 
+# --- the oldest release a feature installs ------------------------------------------------
+
+# An exact version below the floor stops before anything is installed.
+sandbox; feature <<<"$(standard)
+MIN_VERSION=1.2.0
+feature_main"
+
+run VERSION=1.0.0
+
+check "an exact version below the floor stops before anything is installed" bash -c "grep -qF 'tool: 1.0.0 is older than 1.2.0, the oldest release this feature installs' '$SANDBOX/out' && ! [ -e '$SANDBOX/root/usr/local/bin/tool' ]"
+
+# A version at the floor installs.
+sandbox; feature <<<"$(standard)
+MIN_VERSION=1.2.3
+feature_main"
+
+run
+
+check "a version at the floor installs" installed tool
+
+# The latest release below the floor stops the install.
+sandbox; feature <<<"$(standard)
+MIN_VERSION=1.3.0
+feature_main"
+
+run
+
+check "the latest release below the floor stops the install" has "tool: 1.2.3 is older than 1.3.0, the oldest release this feature installs"
+
+# An empty floor installs any release.
+sandbox; feature <<<"$(standard)
+MIN_VERSION=
+feature_main"
+
+run
+
+check "an empty floor installs any release" installed tool
+
+# A floor named for arm64 applies there.
+sandbox; feature <<<"$(standard)
+MIN_VERSION=\"\$(arch_name x86_64= aarch64=1.3.0)\"
+feature_main"
+
+run FAKE_ARCH=aarch64
+
+check "a floor named for arm64 applies there" has "tool: 1.2.3 is older than 1.3.0, the oldest release this feature installs"
+
+# A floor named for arm64 leaves amd64 free.
+sandbox; feature <<<"$(standard)
+MIN_VERSION=\"\$(arch_name x86_64= aarch64=1.3.0)\"
+feature_main"
+
+run
+
+check "a floor named for arm64 leaves amd64 free" installed tool
+
+# A four-part floor compares by version, not by text.
+sandbox; feature <<<"$(standard); tag=10.0.0.0; MIN_VERSION=9.0.0.0; check_floor && echo passed; exit 0"
+
+run
+
+check "a four-part floor compares by version, not by text" has "passed"
+
 echo "$passed passed, $failed failed"
 [ "$failed" -eq 0 ]

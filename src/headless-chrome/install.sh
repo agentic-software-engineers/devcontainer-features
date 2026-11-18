@@ -10,6 +10,8 @@ VERSION="$(option VERSION latest)"
 require_version '^(latest|stable|beta|dev|canary|[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+)$'
 # Name the build's platform first, so an unsupported machine stops before any package installs.
 PLATFORM="$(arch_name x86_64=linux64 aarch64=linux-arm64)"
+# Name the oldest release with the files this feature installs.
+MIN_VERSION="$(arch_name x86_64=120.0.6098.0 aarch64=153.0.8001.0)"
 # Install the libraries the browser loads at run time.
 PACKAGES+=(
   fonts-liberation

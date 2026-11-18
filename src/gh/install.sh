@@ -8,6 +8,8 @@ VERSION="$(option VERSION latest)"
 
 # Accept only options in the feature's format, before anything is installed.
 require_version '^(latest|v?[0-9]+\.[0-9]+\.[0-9]+)$'
+# Name the oldest release with the files this feature installs.
+MIN_VERSION="$(arch_name x86_64= aarch64=0.5.6)"
 # Resolve the latest release from the project's git tags.
 PACKAGES+=(git)
 
