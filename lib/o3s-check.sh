@@ -4,35 +4,37 @@
 set -euo pipefail
 
 root="${1:-$(cd "$(dirname "$0")/.." && pwd)}"
+command -v jq >/dev/null || { echo "the o3s check needs jq" >&2; exit 1; }
 
-python3 -I - "$root" <<'PY'
-import json, pathlib, sys
+problems=0
+checked=0
+# Check each feature's o3s section.
+for path in "$root"/src/*/devcontainer-feature.json; do
+  checked=$((checked + 1))
+  feature="src/$(basename "$(dirname "$path")")"
+  # Name a missing section, a section out of shape, and every entry that misses a field its kind
+  # needs beside its name and description.
+  found="$(jq -r --arg feature "$feature" '
+    .customizations.o3s as $o3s
+    | {hosts: ["ports"], env: ["value"], files: ["target"]} as $needs
+    | if $o3s == null then "\($feature): needs an o3s section"
+      else
+        ($o3s | keys_unsorted[] | select($needs[.] == null)
+          | "\($feature): \(.) sits beside the sections hosts, env and files"),
+        ($needs | to_entries[] | .key as $kind | .value as $fields | ($o3s[$kind] // []) as $entries
+          | if ($entries | type) != "array" then "\($feature): \($kind) must be a list"
+            else $entries | to_entries[] | .key as $i | .value as $entry
+              | (["name", "description"] + $fields)[]
+              | select(($entry[.] // "") | . == "" or . == [] or . == 0 or . == false)
+              | "\($feature): \($kind)[\($i)] needs a \(.)"
+            end)
+      end' "$path")"
+  # Report the problems this feature has.
+  if [ -n "$found" ]; then
+    echo "$found" >&2
+    problems=$((problems + $(wc -l <<<"$found")))
+  fi
+done
 
-root = pathlib.Path(sys.argv[1])
-# The fields each kind of entry needs beside its name and description.
-needs = {"hosts": ["ports"], "env": ["value"], "files": ["target"]}
-problems, checked = [], 0
-for path in sorted(root.glob("src/*/devcontainer-feature.json")):
-    checked += 1
-    feature = f"src/{path.parent.name}"
-    o3s = json.loads(path.read_text()).get("customizations", {}).get("o3s")
-    if o3s is None:
-        problems.append(f"{feature}: needs an o3s section")
-        continue
-    for kind in o3s:
-        if kind not in needs:
-            problems.append(f"{feature}: {kind} sits beside the sections hosts, env and files")
-    for kind, fields in needs.items():
-        entries = o3s.get(kind, [])
-        if not isinstance(entries, list):
-            problems.append(f"{feature}: {kind} must be a list")
-            continue
-        for i, entry in enumerate(entries):
-            for field in ["name", "description", *fields]:
-                if not entry.get(field):
-                    problems.append(f"{feature}: {kind}[{i}] needs a {field}")
-for problem in problems:
-    print(problem, file=sys.stderr)
-print(f"{checked} features checked")
-sys.exit(1 if problems else 0)
-PY
+echo "$checked features checked"
+[ "$problems" -eq 0 ]
