@@ -2,7 +2,7 @@
   "id": "python",
   "version": "3.1.0",
   "name": "Python",
-  "description": "Installs Python through uv, with python, uv and uvx, on a selectable channel or release line.",
+  "description": "The Python programming language through uv, with python, uv and uvx for running code and managing packages.",
   "documentationURL": "https://github.com/hansehart/devcontainer-features/tree/main/src/python",
   "legacyIds": [
     "uv"

@@ -2,7 +2,7 @@
   "id": "gh",
   "version": "1.0.0",
   "name": "gh (GitHub CLI)",
-  "description": "Installs the official GitHub CLI as a single binary.",
+  "description": "GitHub's official command-line tool for issues, pull requests and releases.",
   "documentationURL": "https://github.com/hansehart/devcontainer-features/tree/main/src/gh",
   "options": {
     "version": {

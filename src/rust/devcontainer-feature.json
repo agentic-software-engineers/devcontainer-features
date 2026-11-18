@@ -2,7 +2,7 @@
   "id": "rust",
   "version": "2.1.0",
   "name": "Rust",
-  "description": "Installs the Rust toolchain through rustup, with rustc and cargo, on a selectable channel or release line.",
+  "description": "The Rust toolchain through rustup, with rustc and cargo for building and running crates.",
   "documentationURL": "https://github.com/hansehart/devcontainer-features/tree/main/src/rust",
   "options": {
     "version": {
