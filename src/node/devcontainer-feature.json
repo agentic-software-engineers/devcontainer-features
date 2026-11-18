@@ -2,7 +2,7 @@
   "id": "node",
   "version": "5.1.0",
   "name": "Node.js",
-  "description": "Installs the Node.js runtime through nvm, with node, npm and npx, on a selectable channel or release line.",
+  "description": "The Node.js JavaScript runtime through nvm, with node, npm and npx for running code and installing packages.",
   "documentationURL": "https://github.com/hansehart/devcontainer-features/tree/main/src/node",
   "options": {
     "version": {

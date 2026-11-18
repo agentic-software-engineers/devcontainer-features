@@ -1067,5 +1067,29 @@ run
 
 check "a four-part floor compares by version, not by text" has "passed"
 
+# --- README and descriptions -------------------------------------------------------------
+
+# Write a feature's metadata and its README row into a sandbox repo.
+described() {
+  mkdir -p "$repo/src/$1"
+  printf '{ "id": "%s", "description": "%s" }\n' "$1" "$2" > "$repo/src/$1/devcontainer-feature.json"
+  printf '| **%s** | %s | `ghcr.io/hansehart/devcontainer-features/%s` |\n' "$1" "$3" "$1" >> "$repo/README.md"
+}
+
+# A description equal to its README line passes.
+sandbox; repo="$SANDBOX/repo"; described tool "A tool for examples." "A tool for examples."
+
+check "a description equal to its README line passes" bash -c "bash '$(dirname "$LIB")/readme-check.sh' '$repo' > '$SANDBOX/out' 2>&1 && grep -qx '1 features checked' '$SANDBOX/out'"
+
+# A description that differs from its README line is named.
+sandbox; repo="$SANDBOX/repo"; described tool "A tool." "A tool for examples."
+
+check "a description that differs from its README line is named" bash -c "! bash '$(dirname "$LIB")/readme-check.sh' '$repo' > '$SANDBOX/out' 2>&1 && grep -qF 'src/tool: the description differs from its README line' '$SANDBOX/out'"
+
+# A feature without a README row is named.
+sandbox; repo="$SANDBOX/repo"; mkdir -p "$repo/src/tool"; echo '{ "id": "tool", "description": "A tool." }' > "$repo/src/tool/devcontainer-feature.json"; : > "$repo/README.md"
+
+check "a feature without a README row is named" bash -c "! bash '$(dirname "$LIB")/readme-check.sh' '$repo' > '$SANDBOX/out' 2>&1 && grep -qF 'src/tool: needs a README row' '$SANDBOX/out'"
+
 echo "$passed passed, $failed failed"
 [ "$failed" -eq 0 ]

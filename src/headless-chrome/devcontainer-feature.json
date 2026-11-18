@@ -2,7 +2,7 @@
   "id": "headless-chrome",
   "version": "1.2.0",
   "name": "Headless Chrome",
-  "description": "Installs chrome-headless-shell (Chrome for Testing) on a selectable channel, with the runtime shared libraries it needs.",
+  "description": "A headless Chrome build for browser automation and rendering.",
   "documentationURL": "https://github.com/hansehart/devcontainer-features/tree/main/src/headless-chrome",
   "options": {
     "version": {

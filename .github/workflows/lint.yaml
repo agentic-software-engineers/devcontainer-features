@@ -27,3 +27,5 @@ jobs:
         run: bash lib/sync.sh --check
       - name: "Check every feature's o3s metadata"
         run: bash lib/o3s-check.sh
+      - name: "Check every feature's description against the README"
+        run: bash lib/readme-check.sh

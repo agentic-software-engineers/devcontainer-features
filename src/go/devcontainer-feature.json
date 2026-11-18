@@ -2,7 +2,7 @@
   "id": "go",
   "version": "2.1.0",
   "name": "Go",
-  "description": "Installs the Go toolchain with go and gofmt on a selectable channel or release line.",
+  "description": "The Go programming language toolchain, with go and gofmt for building and formatting code.",
   "documentationURL": "https://github.com/hansehart/devcontainer-features/tree/main/src/go",
   "options": {
     "version": {
