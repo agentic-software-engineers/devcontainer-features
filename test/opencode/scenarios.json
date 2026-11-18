@@ -1,0 +1,27 @@
+{
+  "minor_line": {
+    "image": "ubuntu:24.04",
+    "features": {
+      "opencode": {
+        "version": "2.2"
+      }
+    }
+  },
+  "pinned_version": {
+    "image": "ubuntu:24.04",
+    "features": {
+      "opencode": {
+        "version": "2.3.2"
+      }
+    }
+  },
+  "state_dir": {
+    "image": "ubuntu:24.04",
+    "remoteUser": "ubuntu",
+    "features": {
+      "opencode": {
+        "stateDir": "/home/ubuntu/.local/state/opencode"
+      }
+    }
+  }
+}
