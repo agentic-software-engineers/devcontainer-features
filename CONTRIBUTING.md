@@ -49,7 +49,7 @@
 
 - **Options** choose what gets installed and where its data lives, each of one kind below, listed with `version` first, then `stateDir` if the feature has one, then the rest alphabetically.
 - **Defaults** come from each tool itself and the o3s metadata hardens them, and the tool reads its config from the files the o3s metadata names.
-- **Version** picks the feature's main program through `version`, and a companion program's release through `<program>Version`. Each takes `latest`, a release line (`major` or `major.minor`) or an exact version, wherever the tool's versions have those parts, resolved to an exact release before installing and logged, and the description names the forms with placeholders, such as `major.minor.patch`, and the oldest release the feature installs when it names one.
+- **Version** picks the feature's main program through `version`, and a companion program's release through `<program>Version`. Each takes `latest`, a release line (`major` or `major.minor`) or an exact version, wherever the tool's versions have those parts, resolved to an exact release before installing and logged, and the description names the forms with placeholders, such as `major.minor.patch`.
 - **State** lives in `stateDir`, which is opt-in, must be inside the remote user's home, and is meant to sit on a volume. The feature checks the path at build time, and its create hook creates the dir and warns when it sits on the container filesystem.
 - **Feature-specific** options cover whatever is unique to the tool, and a list is a comma-separated string with a plural name.
 

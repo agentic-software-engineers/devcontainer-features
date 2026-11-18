@@ -8,7 +8,7 @@
     "version": {
       "type": "string",
       "default": "latest",
-      "description": "Channel (latest) or an exact version (major.minor.patch), from 0.5.6 on for arm64."
+      "description": "Channel (latest) or an exact version (major.minor.patch)."
     },
     "stateDir": {
       "type": "string",
