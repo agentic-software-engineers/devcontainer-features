@@ -1,6 +1,6 @@
 {
   "id": "python",
-  "version": "3.1.0",
+  "version": "3.2.0",
   "name": "Python",
   "description": "The Python programming language through uv, with python, uv and uvx for running code and managing packages.",
   "documentationURL": "https://github.com/hansehart/devcontainer-features/tree/main/src/python",

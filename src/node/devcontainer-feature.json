@@ -1,6 +1,6 @@
 {
   "id": "node",
-  "version": "5.1.0",
+  "version": "5.2.0",
   "name": "Node.js",
   "description": "The Node.js JavaScript runtime through nvm, with node, npm and npx for running code and installing packages.",
   "documentationURL": "https://github.com/hansehart/devcontainer-features/tree/main/src/node",

@@ -1,6 +1,6 @@
 {
   "id": "claude-code",
-  "version": "3.1.0",
+  "version": "3.2.0",
   "name": "Claude Code CLI",
   "description": "Anthropic's official command-line tool for agentic coding with Claude.",
   "documentationURL": "https://github.com/hansehart/devcontainer-features/tree/main/src/claude-code",

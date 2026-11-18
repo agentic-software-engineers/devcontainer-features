@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.3.0](https://github.com/hansehart/devcontainer-features/compare/headless-chrome-1.2.0...headless-chrome-1.3.0) (2026-11-18)
+
+
+### Features
+
+* **lib:** keep a flat tarball's files when unpacking ([#199](https://github.com/hansehart/devcontainer-features/issues/199)) ([3ab7dbe](https://github.com/hansehart/devcontainer-features/commit/3ab7dbe8e2358c8a117ea710cdbc0f3270f86f8d))
+* **lib:** name the oldest release each feature installs ([#195](https://github.com/hansehart/devcontainer-features/issues/195)) ([7741327](https://github.com/hansehart/devcontainer-features/commit/7741327bee9894b6ca67319389597a43b2edcea2))
+* **opencode:** add the OpenCode CLI with o3s metadata ([#200](https://github.com/hansehart/devcontainer-features/issues/200)) ([b897e4d](https://github.com/hansehart/devcontainer-features/commit/b897e4d3680140c9d4d7826dd3e5ff907c355934))
+
 ## [1.2.0](https://github.com/hansehart/devcontainer-features/compare/headless-chrome-1.1.0...headless-chrome-1.2.0) (2026-11-17)
 
 

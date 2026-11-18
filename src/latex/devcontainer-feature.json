@@ -1,6 +1,6 @@
 {
   "id": "latex",
-  "version": "3.2.0",
+  "version": "3.3.0",
   "name": "LaTeX (TeX Live)",
   "description": "The TeX Live distribution for typesetting LaTeX documents and bibliographies.",
   "documentationURL": "https://github.com/hansehart/devcontainer-features/tree/main/src/latex",

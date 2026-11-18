@@ -1,6 +1,6 @@
 {
   "id": "go",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "name": "Go",
   "description": "The Go programming language toolchain, with go and gofmt for building and formatting code.",
   "documentationURL": "https://github.com/hansehart/devcontainer-features/tree/main/src/go",

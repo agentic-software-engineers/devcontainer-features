@@ -1,6 +1,6 @@
 {
   "id": "tea",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "name": "tea (Gitea CLI)",
   "description": "Gitea's official command-line tool for issues, pull requests and releases.",
   "documentationURL": "https://github.com/hansehart/devcontainer-features/tree/main/src/tea",

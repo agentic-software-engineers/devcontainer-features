@@ -1,6 +1,6 @@
 {
   "id": "age",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "name": "age",
   "description": "A simple, modern and secure file-encryption tool.",
   "documentationURL": "https://github.com/hansehart/devcontainer-features/tree/main/src/age",
