@@ -3,33 +3,28 @@
 set -euo pipefail
 
 root="${1:-$(cd "$(dirname "$0")/.." && pwd)}"
+command -v jq >/dev/null || { echo "the README check needs jq" >&2; exit 1; }
 
-python3 -I - "$root" <<'PY'
-import json, pathlib, re, sys
+readme="$root/README.md"
+# Read an absent README as an empty one, so every feature is named as missing.
+if [ ! -f "$readme" ]; then readme=/dev/null; fi
 
-root = pathlib.Path(sys.argv[1])
-readme = root / "README.md"
-# Read each row's description by the feature id its image names.
-rows = {}
-for line in (readme.read_text() if readme.exists() else "").splitlines():
-    match = re.match(r"\| [^|]+ \| (.+?) \| `ghcr\.io/hansehart/devcontainer-features/([a-z0-9-]+)` \|", line)
-    # Keep the rows that name a feature's image.
-    if match:
-        rows[match.group(2)] = match.group(1)
-problems, checked = [], 0
-# Compare each feature's description with its row.
-for path in sorted(root.glob("src/*/devcontainer-feature.json")):
-    checked += 1
-    feature = f"src/{path.parent.name}"
-    description = json.loads(path.read_text()).get("description")
-    # Name a feature the README leaves out, and one whose description differs.
-    if path.parent.name not in rows:
-        problems.append(f"{feature}: needs a README row")
-    elif description != rows[path.parent.name]:
-        problems.append(f"{feature}: the description differs from its README line")
-# Report every problem found.
-for problem in problems:
-    print(problem, file=sys.stderr)
-print(f"{checked} features checked")
-sys.exit(1 if problems else 0)
-PY
+problems=0
+checked=0
+# Compare each feature's description with its row, found by the image the row names.
+for path in "$root"/src/*/devcontainer-feature.json; do
+  checked=$((checked + 1))
+  id="$(basename "$(dirname "$path")")"
+  row="\\| [^|]+ \\| (.+) \\| \`ghcr\\.io/hansehart/devcontainer-features/$id\` \\|"
+  # Name a feature the README leaves out, and one whose description differs.
+  if ! grep -qE "^$row" "$readme"; then
+    echo "src/$id: needs a README row" >&2
+    problems=$((problems + 1))
+  elif [ "$(jq -r '.description // ""' "$path")" != "$(sed -nE "s#^$row.*#\\1#p" "$readme" | head -n1)" ]; then
+    echo "src/$id: the description differs from its README line" >&2
+    problems=$((problems + 1))
+  fi
+done
+
+echo "$checked features checked"
+[ "$problems" -eq 0 ]
