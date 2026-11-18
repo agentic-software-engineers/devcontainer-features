@@ -1041,7 +1041,7 @@ run
 check "a floor named for arm64 leaves amd64 free" installed tool
 
 # A four-part floor compares by version, not by text.
-sandbox; feature <<<"$(standard); tag=120.0.6098.0; MIN_VERSION=99.0.1.0; check_floor && echo passed; exit 0"
+sandbox; feature <<<"$(standard); tag=10.0.0.0; MIN_VERSION=9.0.0.0; check_floor && echo passed; exit 0"
 
 run
 
