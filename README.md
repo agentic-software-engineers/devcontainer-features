@@ -1,17 +1,17 @@
 # Dev Container Features
 
-<p>
-  <img src="https://cdn.simpleicons.org/claude" alt="Claude Code CLI" title="Claude Code CLI" height="32">
-  <img src="https://cdn.simpleicons.org/docker" alt="Docker in Docker" title="Docker in Docker" height="32">
-  <img src="https://cdn.simpleicons.org/github" alt="gh (GitHub CLI)" title="gh (GitHub CLI)" height="32">
-  <img src="https://cdn.simpleicons.org/go" alt="Go" title="Go" height="32">
-  <img src="https://cdn.simpleicons.org/googlechrome" alt="Headless Chrome" title="Headless Chrome" height="32">
-  <img src="https://cdn.simpleicons.org/latex" alt="LaTeX (TeX Live)" title="LaTeX (TeX Live)" height="32">
-  <img src="https://cdn.simpleicons.org/nodedotjs" alt="Node.js" title="Node.js" height="32">
-  <img src="https://cdn.simpleicons.org/opencode" alt="OpenCode CLI" title="OpenCode CLI" height="32">
-  <img src="https://cdn.simpleicons.org/python" alt="Python" title="Python" height="32">
-  <img src="https://cdn.simpleicons.org/rust" alt="Rust" title="Rust" height="32">
-  <img src="https://cdn.simpleicons.org/gitea" alt="tea (Gitea CLI)" title="tea (Gitea CLI)" height="32">
+<p align="center">
+  <img src="https://cdn.simpleicons.org/claude" alt="Claude Code CLI" title="Claude Code CLI" height="48">
+  <img src="https://cdn.simpleicons.org/docker" alt="Docker in Docker" title="Docker in Docker" height="48">
+  <img src="https://cdn.simpleicons.org/github" alt="gh (GitHub CLI)" title="gh (GitHub CLI)" height="48">
+  <img src="https://cdn.simpleicons.org/go" alt="Go" title="Go" height="48">
+  <img src="https://cdn.simpleicons.org/googlechrome" alt="Headless Chrome" title="Headless Chrome" height="48">
+  <img src="https://cdn.simpleicons.org/latex" alt="LaTeX (TeX Live)" title="LaTeX (TeX Live)" height="48">
+  <img src="https://cdn.simpleicons.org/nodedotjs" alt="Node.js" title="Node.js" height="48">
+  <img src="https://cdn.simpleicons.org/opencode" alt="OpenCode CLI" title="OpenCode CLI" height="48">
+  <img src="https://cdn.simpleicons.org/python" alt="Python" title="Python" height="48">
+  <img src="https://cdn.simpleicons.org/rust" alt="Rust" title="Rust" height="48">
+  <img src="https://cdn.simpleicons.org/gitea" alt="tea (Gitea CLI)" title="tea (Gitea CLI)" height="48">
 </p>
 
 | Feature | Description | Image |
