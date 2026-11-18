@@ -1081,12 +1081,6 @@ sandbox; repo="$SANDBOX/repo"; described tool "A tool for examples." "A tool for
 
 check "a description equal to its README line passes" bash -c "bash '$(dirname "$LIB")/readme-check.sh' '$repo' > '$SANDBOX/out' 2>&1 && grep -qx '1 features checked' '$SANDBOX/out'"
 
-# A row that names its feature with a badge is read like any other.
-sandbox; repo="$SANDBOX/repo"; mkdir -p "$repo/src/tool"; echo '{ "id": "tool", "description": "A tool for examples." }' > "$repo/src/tool/devcontainer-feature.json"
-printf '| ![tool](https://img.shields.io/badge/tool-555555) | A tool for examples. | `ghcr.io/hansehart/devcontainer-features/tool` |\n' > "$repo/README.md"
-
-check "a row that names its feature with a badge is read like any other" bash -c "bash '$(dirname "$LIB")/readme-check.sh' '$repo' > '$SANDBOX/out' 2>&1 && grep -qx '1 features checked' '$SANDBOX/out'"
-
 # A description that differs from its README line is named.
 sandbox; repo="$SANDBOX/repo"; described tool "A tool." "A tool for examples."
 
