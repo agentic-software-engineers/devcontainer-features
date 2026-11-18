@@ -465,6 +465,26 @@ run
 
 check "hooks are installed only for features that ship them" bash -c "! [ -e '$SANDBOX/root/usr/local/libexec/tool' ]"
 
+# --- flat tarballs -----------------------------------------------------------------------
+
+# untar keeps a flat tarball's file.
+sandbox; tar -czf "$SANDBOX/release/v1.2.3/flat.tar.gz" -C "$SANDBOX/pkg/tool-v1.2.3" tool
+feature <<<"$(standard | sed 's#url=.*#url="$REL/$tag/flat.tar.gz"#; s#checksums=.*#unverified="flat fixture"#')
+feature_main"
+
+run
+
+check "untar keeps a flat tarball's file" installed tool
+
+# unpack keeps a flat tarball's file in its tree.
+sandbox; tar -czf "$SANDBOX/release/v1.2.3/flat.tar.gz" -C "$SANDBOX/pkg/tool-v1.2.3" tool
+feature <<<"$(standard | sed 's#url=.*#url="$REL/$tag/flat.tar.gz"#; s#checksums=.*#unverified="flat fixture"#; s#^install_program.*#install_program() { unpack /opt/tool; link_bin /opt/tool tool; }#')
+feature_main"
+
+run
+
+check "unpack keeps a flat tarball's file in its tree" bash -c "[ -x '$SANDBOX/root/opt/tool/tool' ]"
+
 # --- program trees ---------------------------------------------------------------------
 
 # unpack places the release in its own tree.
