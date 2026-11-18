@@ -208,6 +208,18 @@
     },
     {
       "customType": "regex",
+      "description": "Keep the pinned OpenCode release in its test on the newest release.",
+      "managerFilePatterns": [
+        "/^test/opencode/scenarios\\.json$/",
+        "/^test/opencode/pinned_version\\.sh$/"
+      ],
+      "matchStrings": ["(?:^|[^\\d.])(?<currentValue>\\d+\\.\\d+\\.\\d+)(?:[^\\d.]|$)"],
+      "datasourceTemplate": "github-releases",
+      "depNameTemplate": "anomalyco/opencode",
+      "extractVersionTemplate": "^v(?<version>.+)$"
+    },
+    {
+      "customType": "regex",
       "description": "Keep the pinned Rust release in its test on the newest release.",
       "managerFilePatterns": [
         "/^test/rust/scenarios\\.json$/",
