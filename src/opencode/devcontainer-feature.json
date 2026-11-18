@@ -2,7 +2,7 @@
   "id": "opencode",
   "version": "1.0.0",
   "name": "OpenCode CLI",
-  "description": "Installs the OpenCode CLI on a selectable channel or release line.",
+  "description": "An open-source command-line tool for agentic coding with any model provider.",
   "documentationURL": "https://github.com/hansehart/devcontainer-features/tree/main/src/opencode",
   "options": {
     "version": {
