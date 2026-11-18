@@ -101,7 +101,20 @@ apt_install() {
 # Unpack the release into the work dir.
 untar() {
   [ -n "$asset" ] || die "nothing was downloaded to unpack"
-  tar -xf "$tmp/$asset" -C "$tmp" --strip-components=1 --no-same-owner
+  tar -xf "$tmp/$asset" -C "$tmp" --strip-components="$(tar_depth)" --no-same-owner
+}
+
+# Count the folders to step past: the archive's single top folder, or none when its files sit at
+# the top, as a zip is read.
+tar_depth() {
+  local entries
+  entries="$(tar -tf "$tmp/$asset")"
+  # Step past one folder only when every entry sits inside the same one.
+  if [ "$(cut -d/ -f1 <<<"$entries" | sort -u | wc -l)" -eq 1 ] && grep -q / <<<"$entries"; then
+    echo 1
+  else
+    echo 0
+  fi
 }
 
 # Unpack the release into its own tree, without the archive's single top folder or its owners.
@@ -126,7 +139,7 @@ unpack() {
       find "$staging" -mindepth 1 -maxdepth 1 -exec mv -t "$dest" {} +
       ;;
     *)
-      tar -xf "$tmp/$asset" -C "$dest" --strip-components=1 --no-same-owner "$@"
+      tar -xf "$tmp/$asset" -C "$dest" --strip-components="$(tar_depth)" --no-same-owner "$@"
       ;;
   esac
 }
@@ -296,7 +309,7 @@ feature_main() {
 }
 
 # Keep the shared steps the same for every feature.
-readonly -f option log die arch_name release_tag apt_install untar unpack link_bin write_file record as_user \
+readonly -f option log die arch_name release_tag apt_install untar tar_depth unpack link_bin write_file record as_user \
   require_version \
   install_bin claim_state_dir check_digest \
   download_release check_floor write_profile install_hooks optional feature_main
