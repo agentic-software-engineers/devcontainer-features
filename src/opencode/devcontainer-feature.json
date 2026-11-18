@@ -1,0 +1,70 @@
+{
+  "id": "opencode",
+  "version": "1.0.0",
+  "name": "OpenCode",
+  "description": "Installs the OpenCode CLI as a single binary.",
+  "documentationURL": "https://github.com/hansehart/devcontainer-features/tree/main/src/opencode",
+  "options": {
+    "version": {
+      "type": "string",
+      "default": "latest",
+      "description": "Channel (latest), a release line (major or major.minor), or an exact version (major.minor.patch)."
+    },
+    "stateDir": {
+      "type": "string",
+      "default": "",
+      "description": "If set, puts this feature's data at this path, which must be inside the remote user's home. Mount a volume there to persist it across rebuilds."
+    }
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "sst-dev.opencode"
+      ]
+    },
+    "o3s": {
+      "hosts": [
+        {
+          "name": "opencode.ai",
+          "ports": [
+            443
+          ],
+          "secret": "OPENCODE_API_KEY",
+          "description": "OpenCode Zen inference and the update check"
+        },
+        {
+          "name": "models.opencode.ai",
+          "ports": [
+            443
+          ],
+          "description": "The model catalog"
+        }
+      ],
+      "env": [
+        {
+          "name": "OPENCODE_DISABLE_AUTOUPDATE",
+          "value": "1",
+          "description": "With 1, updates stay off"
+        },
+        {
+          "name": "OPENCODE_CONFIG_DIR",
+          "value": "${stateDir}",
+          "description": "OpenCode's config in the state dir"
+        },
+        {
+          "name": "OPENCODE_DB",
+          "value": "${stateDir}/opencode.db",
+          "description": "OpenCode's sessions and sign-ins in the state dir"
+        }
+      ],
+      "files": [
+        {
+          "name": "opencode.json",
+          "target": "${stateDir}/opencode.json",
+          "description": "The agent's rules and integrations"
+        }
+      ]
+    }
+  },
+  "postCreateCommand": "/usr/local/libexec/opencode/init.sh"
+}
