@@ -30,7 +30,7 @@
             443
           ],
           "secret": "OPENCODE_API_KEY",
-          "description": "OpenCode Zen inference and the update check"
+          "description": "OpenCode Zen inference"
         },
         {
           "name": "models.opencode.ai",
