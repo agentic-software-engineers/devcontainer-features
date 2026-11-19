@@ -1,6 +1,6 @@
 {
   "id": "opencode",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "name": "OpenCode CLI",
   "description": "An open-source command-line tool for agentic coding with any model provider.",
   "documentationURL": "https://github.com/hansehart/devcontainer-features/tree/main/src/opencode",

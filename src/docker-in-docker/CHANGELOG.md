@@ -1,5 +1,16 @@
 # Changelog
 
+## [5.0.0](https://github.com/hansehart/devcontainer-features/compare/docker-in-docker-4.2.0...docker-in-docker-5.0.0) (2026-11-19)
+
+
+### ⚠ BREAKING CHANGES
+
+* **docker-in-docker:** drop the shared socket ([#206](https://github.com/hansehart/devcontainer-features/issues/206))
+
+### Features
+
+* **docker-in-docker:** drop the shared socket ([#206](https://github.com/hansehart/devcontainer-features/issues/206)) ([bde5003](https://github.com/hansehart/devcontainer-features/commit/bde5003898bfaab3b895a1d46f54c4e2bef3926f))
+
 ## [4.2.0](https://github.com/hansehart/devcontainer-features/compare/docker-in-docker-4.1.0...docker-in-docker-4.2.0) (2026-11-18)
 
 
