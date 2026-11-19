@@ -4,7 +4,7 @@ set -e
 # Import the test library
 source dev-container-features-test-lib
 
-check "pinned to 2.1.325" bash -lc "claude --version | grep -qwF '2.1.325'"
+check "pinned to 2.1.326" bash -lc "claude --version | grep -qwF '2.1.326'"
 
 # Report result
 reportResults
