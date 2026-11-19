@@ -90,24 +90,8 @@ done
 # Publish the socket under a fixed name for every account.
 ln -sfn "${RUNTIME_DIR}/docker.sock" /run/docker-rootless.sock
 
-# Serve a second socket in a mounted directory, for reaching the daemon from outside the
-# container. Both listeners are named together; daemon settings that name hosts win.
-SHARED_DIR=/run/docker-host
-HOSTS=()
-if [ -d "$SHARED_DIR" ]; then
-  if grep -q '"hosts"' "$CONFIG" 2>/dev/null; then
-    echo "docker-in-docker: ${CONFIG} names its own hosts, which the daemon serves in place of ${SHARED_DIR}" >&2
-  else
-    # Keep the shared directory private to the daemon's user, since its socket serves anyone
-    # who reaches it.
-    chown "$RUSER":"$RUSER" "$SHARED_DIR" || true
-    chmod 0700 "$SHARED_DIR" || true
-    HOSTS=(-H "unix://${RUNTIME_DIR}/docker.sock" -H "unix://${SHARED_DIR}/docker.sock")
-  fi
-fi
-
 start_dockerd() {
-  local flags=("${HOSTS[@]}")
+  local flags=()
   # Clear pid files from an earlier run, so the daemon starts fresh.
   find /run /var/run -iname 'docker*.pid' -delete 2>/dev/null || true
   find /run /var/run -iname 'container*.pid' -delete 2>/dev/null || true

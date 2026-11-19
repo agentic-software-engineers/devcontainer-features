@@ -35,7 +35,7 @@
       }
     }
   },
-  "shared_socket": {
+  "host_folder": {
     "image": "ubuntu:24.04",
     "remoteUser": "ubuntu",
     "runArgs": [
@@ -59,12 +59,12 @@
     },
     "mounts": [
       {
-        "source": "dind-shared-socket",
+        "source": "dind-host-folder",
         "target": "/run/docker-host",
         "type": "volume"
       },
       {
-        "source": "dind-shared-socket-data",
+        "source": "dind-host-folder-data",
         "target": "/var/lib/docker-rootless",
         "type": "volume"
       }
