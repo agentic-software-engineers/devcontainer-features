@@ -1,0 +1,29 @@
+{
+  "minor_line": {
+    "image": "ubuntu:24.04",
+    "features": {
+      "kind": {
+        "version": "0.32",
+        "kubectlVersion": "1.36"
+      }
+    }
+  },
+  "pinned_version": {
+    "image": "ubuntu:24.04",
+    "features": {
+      "kind": {
+        "version": "0.33.0",
+        "kubectlVersion": "1.37.2"
+      }
+    }
+  },
+  "state_dir": {
+    "image": "ubuntu:24.04",
+    "remoteUser": "ubuntu",
+    "features": {
+      "kind": {
+        "stateDir": "/home/ubuntu/.local/state/kind"
+      }
+    }
+  }
+}
