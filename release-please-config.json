@@ -29,6 +29,7 @@
     "src/gh": { "component": "gh" },
     "src/go": { "component": "go" },
     "src/headless-chrome": { "component": "headless-chrome" },
+    "src/kind": { "component": "kind" },
     "src/latex": { "component": "latex" },
     "src/node": { "component": "node" },
     "src/opencode": { "component": "opencode" },

@@ -1,0 +1,39 @@
+{
+  "id": "kind",
+  "version": "1.0.0",
+  "name": "kind (Kubernetes in Docker)",
+  "description": "A tool for running local Kubernetes clusters in Docker containers, with kubectl for driving them.",
+  "documentationURL": "https://github.com/hansehart/devcontainer-features/tree/main/src/kind",
+  "options": {
+    "version": {
+      "type": "string",
+      "default": "latest",
+      "description": "Channel (latest), a release line (major or major.minor), or an exact version (major.minor.patch)."
+    },
+    "kubectlVersion": {
+      "type": "string",
+      "default": "latest",
+      "description": "kubectl channel (latest), a release line (major or major.minor), or an exact version (major.minor.patch)."
+    }
+  },
+  "customizations": {
+    "o3s": {
+      "hosts": [
+        {
+          "name": "*.docker.io",
+          "ports": [
+            443
+          ],
+          "description": "The registry of kind's node image"
+        },
+        {
+          "name": "production.cloudfront.docker.com",
+          "ports": [
+            443
+          ],
+          "description": "The node image's layer downloads"
+        }
+      ]
+    }
+  }
+}
