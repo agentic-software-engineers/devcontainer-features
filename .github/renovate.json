@@ -208,6 +208,36 @@
     },
     {
       "customType": "regex",
+      "description": "Keep the pinned kind release in its test on the newest release.",
+      "managerFilePatterns": [
+        "/^test/kind/scenarios\\.json$/",
+        "/^test/kind/pinned_version\\.sh$/"
+      ],
+      "matchStrings": [
+        "\"version\": \"(?<currentValue>\\d+\\.\\d+\\.\\d+)\"",
+        "KIND=\"(?<currentValue>\\d+\\.\\d+\\.\\d+)\""
+      ],
+      "datasourceTemplate": "github-releases",
+      "depNameTemplate": "kubernetes-sigs/kind",
+      "extractVersionTemplate": "^v(?<version>.+)$"
+    },
+    {
+      "customType": "regex",
+      "description": "Keep the pinned kubectl release in the kind test on the newest release.",
+      "managerFilePatterns": [
+        "/^test/kind/scenarios\\.json$/",
+        "/^test/kind/pinned_version\\.sh$/"
+      ],
+      "matchStrings": [
+        "\"kubectlVersion\": \"(?<currentValue>\\d+\\.\\d+\\.\\d+)\"",
+        "KUBECTL=\"(?<currentValue>\\d+\\.\\d+\\.\\d+)\""
+      ],
+      "datasourceTemplate": "github-releases",
+      "depNameTemplate": "kubernetes/kubernetes",
+      "extractVersionTemplate": "^v(?<version>.+)$"
+    },
+    {
+      "customType": "regex",
       "description": "Keep the pinned OpenCode release in its test on the newest release.",
       "managerFilePatterns": [
         "/^test/opencode/scenarios\\.json$/",
