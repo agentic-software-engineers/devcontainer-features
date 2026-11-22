@@ -34,14 +34,6 @@
     },
     {
       "customType": "regex",
-      "description": "Track the @devcontainers/cli version pinned in the test workflow's run step.",
-      "managerFilePatterns": ["/^\\.github/workflows/[^/]+\\.ya?ml$/"],
-      "matchStrings": ["@devcontainers/cli@(?<currentValue>\\d+\\.\\d+\\.\\d+)"],
-      "datasourceTemplate": "npm",
-      "depNameTemplate": "@devcontainers/cli"
-    },
-    {
-      "customType": "regex",
       "description": "Track the Ubuntu base image of the feature tests, in the test workflow and every scenario.",
       "managerFilePatterns": ["/^\\.github/workflows/test\\.yaml$/", "/^test/[^/]+/scenarios\\.json$/"],
       "matchStrings": [
