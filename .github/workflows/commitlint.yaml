@@ -1,5 +1,8 @@
 name: Lint commits
-on: pull_request
+on:
+  # lint again when the title changes, since a squash merge lands the title on main
+  pull_request:
+    types: [opened, edited, reopened, synchronize]
 
 permissions:
   contents: read
@@ -17,13 +20,19 @@ jobs:
       # provide the Node runtime the linter needs
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
-          node-version: 22
+          node-version: 22.23.5
 
       # install the commit-message linter and its ruleset at the versions the lockfile pins
       - run: npm ci --prefix .github/tools --ignore-scripts --no-audit --no-fund
 
-      # lint only the commits this pull request adds, with the rules kept beside the linter
+      # lint the commits this pull request adds, and those alone, with the rules kept beside the linter
       - run: >
           .github/tools/node_modules/.bin/commitlint --config .github/tools/commitlint.json --verbose
           --from ${{ github.event.pull_request.base.sha }}
           --to ${{ github.event.pull_request.head.sha }}
+
+      # lint the pull request's title, which a squash merge lands on main and release-please reads
+      - name: Lint the title
+        env:
+          TITLE: ${{ github.event.pull_request.title }}
+        run: printf '%s\n' "${TITLE}" | .github/tools/node_modules/.bin/commitlint --config .github/tools/commitlint.json --verbose
