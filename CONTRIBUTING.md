@@ -17,7 +17,7 @@
 - **Versions** are left to the release-please bot, whose pull request raises the first number for breaking changes, the second for new features, and the third for fixes.
 - **Releases** go out when that pull request merges.
 - **Features** reach ghcr.io with every release, each tagged with its own version.
-- **New** features register in `release-please-config.json`, add their name to the scopes in `.github/tools/commitlint.json` and get a README row, whose description their `devcontainer-feature.json` repeats word for word.
+- **New** features register in `.github/release-please/config.json`, add their name to the scopes in `.github/tools/commitlint.json` and get a README row, whose description their `devcontainer-feature.json` repeats word for word.
 
 ## Tests
 
