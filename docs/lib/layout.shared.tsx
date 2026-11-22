@@ -14,5 +14,7 @@ export function baseOptions(): BaseLayoutProps {
     },
     links: [{ text: 'Agentic Software Engineers', url: siteUrl, external: true }],
     githubUrl: `https://github.com/${gitConfig.user}/${gitConfig.repo}`,
+    // dark only, like the landing page
+    themeSwitch: { enabled: false },
   };
 }
