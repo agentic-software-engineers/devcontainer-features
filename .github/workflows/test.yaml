@@ -2,6 +2,9 @@ name: "Test features"
 on:
   pull_request:
 
+permissions:
+  contents: read
+
 jobs:
   # Narrows the test matrix down to the features a pull request touches.
   detect:
@@ -64,7 +67,12 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
+      # install the dev container CLI at the version the lockfile pins
       - name: Install the dev container CLI
-        run: npm install -g @devcontainers/cli@0.90.0
+        run: |
+          npm ci --prefix .github/tools --ignore-scripts --no-audit --no-fund
+          echo "$GITHUB_WORKSPACE/.github/tools/node_modules/.bin" >> "$GITHUB_PATH"
       - name: "Test ${{ matrix.feature }} on ${{ matrix.runner }}"
-        run: devcontainer features test -f ${{ matrix.feature }} -i ubuntu:24.04 .
+        env:
+          FEATURE: ${{ matrix.feature }}
+        run: devcontainer features test -f "$FEATURE" -i ubuntu:24.04 .
