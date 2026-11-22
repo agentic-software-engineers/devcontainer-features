@@ -15,10 +15,12 @@
   "prHourlyLimit": 0,
   "minimumReleaseAge": "3 days",
   "minimumReleaseAgeBehaviour": "timestamp-optional",
+  "automerge": true,
   "ignorePaths": ["test/**/!(scenarios.json|pinned_version.sh)"],
   "osvVulnerabilityAlerts": true,
   "vulnerabilityAlerts": {
     "addLabels": ["security"],
+    "automerge": false,
     "semanticCommitType": "fix"
   },
   "customManagers": [
@@ -306,9 +308,10 @@
       "minimumReleaseAge": "0 days"
     },
     {
-      "description": "Label major updates so they get a deliberate review.",
+      "description": "Label major updates and leave them open, so they get a deliberate review.",
       "matchUpdateTypes": ["major"],
-      "addLabels": ["breaking"]
+      "addLabels": ["breaking"],
+      "automerge": false
     },
     {
       "description": "Renovate updates itself through the renovate-version line, which the github-actions manager reads as an image but which takes no digest.",
