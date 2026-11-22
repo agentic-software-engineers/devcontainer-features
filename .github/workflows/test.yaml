@@ -75,4 +75,4 @@ jobs:
       - name: "Test ${{ matrix.feature }} on ${{ matrix.runner }}"
         env:
           FEATURE: ${{ matrix.feature }}
-        run: devcontainer features test -f "$FEATURE" -i ubuntu:24.04 .
+        run: devcontainer features test -f "$FEATURE" -i ubuntu:26.04 .

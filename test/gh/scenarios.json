@@ -1,6 +1,6 @@
 {
   "pinned_version": {
-    "image": "ubuntu:24.04",
+    "image": "ubuntu:26.04",
     "features": {
       "gh": {
         "version": "2.104.0"
@@ -8,7 +8,7 @@
     }
   },
   "state_dir": {
-    "image": "ubuntu:24.04",
+    "image": "ubuntu:26.04",
     "remoteUser": "ubuntu",
     "features": {
       "gh": {

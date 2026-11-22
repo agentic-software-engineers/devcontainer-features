@@ -1,6 +1,6 @@
 {
   "minor_line": {
-    "image": "ubuntu:24.04",
+    "image": "ubuntu:26.04",
     "features": {
       "python": {
         "version": "3.14"
@@ -8,7 +8,7 @@
     }
   },
   "pinned_version": {
-    "image": "ubuntu:24.04",
+    "image": "ubuntu:26.04",
     "features": {
       "python": {
         "version": "3.15.2",
@@ -17,7 +17,7 @@
     }
   },
   "state_dir": {
-    "image": "ubuntu:24.04",
+    "image": "ubuntu:26.04",
     "remoteUser": "ubuntu",
     "features": {
       "python": {

@@ -1,6 +1,6 @@
 {
   "minor_line": {
-    "image": "ubuntu:24.04",
+    "image": "ubuntu:26.04",
     "features": {
       "kind": {
         "version": "0.32",
@@ -9,7 +9,7 @@
     }
   },
   "pinned_version": {
-    "image": "ubuntu:24.04",
+    "image": "ubuntu:26.04",
     "features": {
       "kind": {
         "version": "0.33.0",
@@ -18,7 +18,7 @@
     }
   },
   "state_dir": {
-    "image": "ubuntu:24.04",
+    "image": "ubuntu:26.04",
     "remoteUser": "ubuntu",
     "features": {
       "kind": {

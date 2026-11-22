@@ -1,6 +1,6 @@
 {
   "minor_line": {
-    "image": "ubuntu:24.04",
+    "image": "ubuntu:26.04",
     "features": {
       "rust": {
         "version": "1.98"
@@ -8,7 +8,7 @@
     }
   },
   "pinned_version": {
-    "image": "ubuntu:24.04",
+    "image": "ubuntu:26.04",
     "features": {
       "rust": {
         "version": "1.100.0",
@@ -17,7 +17,7 @@
     }
   },
   "state_dir": {
-    "image": "ubuntu:24.04",
+    "image": "ubuntu:26.04",
     "remoteUser": "ubuntu",
     "features": {
       "rust": {
