@@ -1,0 +1,28 @@
+@import 'tailwindcss';
+@import 'fumadocs-ui/css/neutral.css';
+@import 'fumadocs-ui/css/preset.css';
+
+@theme inline {
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+/* the landing page's charcoal and cyan */
+.dark {
+  --color-fd-background: #0d0f0f;
+  --color-fd-foreground: #f5fafa;
+  --color-fd-card: #131616;
+  --color-fd-popover: #131616;
+  --color-fd-primary: #4bdfcb;
+  --color-fd-primary-foreground: #0d0f0f;
+  --color-fd-ring: #4bdfcb;
+}
+
+html {
+  scrollbar-gutter: stable;
+}
+
+html > body[data-scroll-locked] {
+  margin-right: 0px !important;
+  --removed-body-scroll-bar-size: 0px !important;
+}

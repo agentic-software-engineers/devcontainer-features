@@ -1,5 +1,7 @@
 # Dev Container Features
 
+Docs: [agentic-software-engineers.com/devcontainer-features](https://agentic-software-engineers.com/devcontainer-features/)
+
 <p align="center">
   <img src="https://cdn.simpleicons.org/claude" alt="Claude Code CLI" title="Claude Code CLI" height="48">
   <img src="https://cdn.simpleicons.org/docker" alt="Docker in Docker" title="Docker in Docker" height="48">

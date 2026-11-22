@@ -1,0 +1,48 @@
+---
+title: Dev Container Features
+description: Tools for any dev container, each installed the same way, pinned, verified and ready for o3s.
+---
+
+A [Dev Container Feature](https://containers.dev/implementors/features/) adds a tool to a dev container through one entry in `devcontainer.json`.
+This repository ships fifteen of them, from agents like Claude Code to languages like Go, Node.js, Python and Rust.
+
+```json title=".devcontainer/devcontainer.json"
+{
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+  "features": {
+    "ghcr.io/hansehart/devcontainer-features/node:5": {}
+  }
+}
+```
+
+## One way for every feature
+
+Every feature runs through the same shared library, so what you learn about one holds for all of them.
+
+- **Versions:** `version` takes `latest`, a release line (`major` or `major.minor`) or an exact version. The feature resolves it to an exact release before installing and logs it. Companion programs have their own option, such as `nvmVersion` for Node.js.
+- **Verified downloads:** each feature declares how its download is checked: against published checksums, or, where a project publishes none, with the reason shown in the build log.
+- **State dir:** the optional `stateDir` puts a feature's data at a path inside your home. Mount a volume there and it persists across rebuilds.
+- **Standard layout:** files go where the Filesystem Hierarchy Standard puts them, so every feature lays out the same way.
+- **o3s metadata:** each feature lists in `customizations.o3s` the hosts its tool reaches, the variables that harden its defaults and the config files it reads, so [o3s](https://github.com/agentic-software-engineers/o3s) can allow exactly those.
+
+## Features
+
+| Feature | Description |
+| --- | --- |
+| **age** | A simple, modern and secure file-encryption tool. |
+| **Claude Code CLI** | Anthropic's official command-line tool for agentic coding with Claude. |
+| **Codex CLI** | OpenAI's official command-line tool for agentic coding with Codex. |
+| **Docker in Docker** | A rootless Docker engine for building and running containers inside the dev container. |
+| **gh (GitHub CLI)** | GitHub's official command-line tool for issues, pull requests and releases. |
+| **Go** | The Go programming language toolchain, with go and gofmt for building and formatting code. |
+| **Headless Chrome** | A headless Chrome build for browser automation and rendering. |
+| **kind (Kubernetes in Docker)** | A tool for running local Kubernetes clusters in Docker containers, with kubectl for driving them. |
+| **LaTeX (TeX Live)** | The TeX Live distribution for typesetting LaTeX documents and bibliographies. |
+| **Node.js** | The Node.js JavaScript runtime through nvm, with node, npm and npx for running code and installing packages. |
+| **OpenCode CLI** | An open-source command-line tool for agentic coding with any model provider. |
+| **Python** | The Python programming language through uv, with python, uv and uvx for running code and managing packages. |
+| **Rust** | The Rust toolchain through rustup, with rustc and cargo for building and running crates. |
+| **sops** | A tool for encrypting, editing and injecting secrets in config files. |
+| **tea (Gitea CLI)** | Gitea's official command-line tool for issues, pull requests and releases. |
+
+Each feature is published to `ghcr.io/hansehart/devcontainer-features/<id>`, tagged with its own version.
