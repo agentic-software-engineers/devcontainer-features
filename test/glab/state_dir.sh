@@ -14,9 +14,9 @@ check "the folders above the state dir belong to the dev user" bash -c '[ "$(sta
 
 check "GLAB_CONFIG_DIR exported" bash -lc '[ "$GLAB_CONFIG_DIR" = /home/ubuntu/.local/state/glab ]'
 
-# A config change lands in the state dir, where the sign-in lives too.
+# A global config change lands in the state dir, where the sign-in lives too.
 check "config writes land in the state dir" \
-  bash -lc 'glab config set editor vim && grep -q "editor: vim" /home/ubuntu/.local/state/glab/config.yml'
+  bash -lc 'glab config set --global editor vim && grep -q "editor: vim" /home/ubuntu/.local/state/glab/config.yml'
 
 # The hook keeps the state dir private to the dev user.
 check "state dir private to the dev user" \
