@@ -7,7 +7,7 @@ FEATURE=glab
 VERSION="$(option VERSION latest)"
 
 # Accept only options in the feature's format, before anything is installed.
-require_version '^(latest|v?[0-9]+\.[0-9]+\.[0-9]+)$'
+require_version '^(latest|v?[0-9]+(\.[0-9]+){0,2})$'
 # Name the oldest release with the files this feature installs.
 MIN_VERSION=1.47.0
 # Resolve the latest release from the project's git tags.

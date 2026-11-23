@@ -1,4 +1,12 @@
 {
+  "minor_line": {
+    "image": "ubuntu:24.04",
+    "features": {
+      "glab": {
+        "version": "1.130"
+      }
+    }
+  },
   "pinned_version": {
     "image": "ubuntu:24.04",
     "features": {
