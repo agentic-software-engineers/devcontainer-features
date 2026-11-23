@@ -8,7 +8,7 @@
     "version": {
       "type": "string",
       "default": "latest",
-      "description": "Channel (latest) or an exact version (major.minor.patch)."
+      "description": "Channel (latest), a release line (major or major.minor), or an exact version (major.minor.patch)."
     }
   },
   "customizations": {

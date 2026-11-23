@@ -7,7 +7,7 @@ FEATURE=age
 VERSION="$(option VERSION latest)"
 
 # Accept only options in the feature's format, before anything is installed.
-require_version '^(latest|v?[0-9]+\.[0-9]+\.[0-9]+)$'
+require_version '^(latest|v?[0-9]+(\.[0-9]+){0,2})$'
 # Resolve the latest release from the project's git tags.
 PACKAGES+=(git)
 
