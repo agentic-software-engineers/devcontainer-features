@@ -8,9 +8,15 @@ This repository ships them for agents, languages and tools.
 
 ```json title=".devcontainer/devcontainer.json"
 {
-  "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+  "image": "ubuntu:24.04",
+  "remoteUser": "ubuntu",
   "features": {
-    "ghcr.io/hansehart/devcontainer-features/node:5": {}
+    "ghcr.io/hansehart/devcontainer-features/opencode:1": {},
+    "ghcr.io/hansehart/devcontainer-features/docker-in-docker:5": {},
+    "ghcr.io/hansehart/devcontainer-features/headless-chrome:1": {},
+    "ghcr.io/hansehart/devcontainer-features/latex:3": {
+      "scheme": "scheme-full"
+    }
   }
 }
 ```
