@@ -1,7 +1,7 @@
 {
   "id": "docker-in-docker",
   "version": "5.0.0",
-  "name": "Docker in Docker",
+  "name": "Docker (Docker in Docker)",
   "description": "A rootless Docker engine for building and running containers inside the dev container.",
   "documentationURL": "https://github.com/hansehart/devcontainer-features/tree/main/src/docker-in-docker",
   "options": {
