@@ -5,7 +5,7 @@ set -e
 source dev-container-features-test-lib
 
 ENGINE="29.9.3"
-BUILDX="0.38.1"
+BUILDX="0.39.1"
 COMPOSE="5.7.2"
 
 check "engine pinned to $ENGINE" bash -c "docker --version | grep -qwF '$ENGINE'"

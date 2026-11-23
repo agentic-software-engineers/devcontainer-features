@@ -5,7 +5,7 @@
     "features": {
       "docker-in-docker": {
         "version": "29.9.3",
-        "buildxVersion": "0.38.1",
+        "buildxVersion": "0.39.1",
         "composeVersion": "5.7.2"
       }
     }
