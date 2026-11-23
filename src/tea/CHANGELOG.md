@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.0](https://github.com/agentic-software-engineers/devcontainer-features/compare/tea-1.3.0...tea-1.4.0) (2026-11-23)
+
+
+### Features
+
+* **tea:** accept a release line as the version ([#247](https://github.com/agentic-software-engineers/devcontainer-features/issues/247)) ([e5c42a8](https://github.com/agentic-software-engineers/devcontainer-features/commit/e5c42a80d3f435c2f0d08cf058919b24f2c894c1))
+
 ## [1.3.0](https://github.com/hansehart/devcontainer-features/compare/tea-1.2.0...tea-1.3.0) (2026-11-18)
 
 

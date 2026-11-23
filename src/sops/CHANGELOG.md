@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.4.0](https://github.com/agentic-software-engineers/devcontainer-features/compare/sops-2.3.0...sops-2.4.0) (2026-11-23)
+
+
+### Features
+
+* **sops:** accept a release line as the version ([#249](https://github.com/agentic-software-engineers/devcontainer-features/issues/249)) ([1e21066](https://github.com/agentic-software-engineers/devcontainer-features/commit/1e21066a42ed11951aec191de457bc13dd3cd4e6))
+
 ## [2.3.0](https://github.com/hansehart/devcontainer-features/compare/sops-2.2.0...sops-2.3.0) (2026-11-18)
 
 
