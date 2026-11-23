@@ -12,7 +12,7 @@ type Feature = {
   description: string
   documentationURL: string
   options?: Record<string, Option>
-  customizations?: { o3s?: { hosts?: Entry[]; env?: Entry[]; files?: Entry[] } }
+  customizations?: { o3s?: { hosts?: Entry[]; env?: Entry[]; files?: Entry[] }; vscode?: { extensions?: string[] } }
 }
 
 const registry = "ghcr.io/hansehart/devcontainer-features"
@@ -35,6 +35,7 @@ for (const f of features) {
   const major = f.version.split(".")[0]
   const options = Object.entries(f.options ?? {})
   const o3s = f.customizations?.o3s ?? {}
+  const extensions = f.customizations?.vscode?.extensions ?? []
   const page = [
     "---",
     `title: ${JSON.stringify(f.name)}`,
@@ -62,7 +63,7 @@ for (const f of features) {
     )
   }
 
-  page.push("", "## o3s", "")
+  page.push("", "## Customizations", "", "### Open Secure Software Suite", "")
   if (!o3s.hosts?.length && !o3s.env?.length && !o3s.files?.length) {
     page.push("This feature adds nothing to the o3s defaults.")
   }
@@ -90,6 +91,17 @@ for (const f of features) {
       "The config files it reads:",
       "",
       table(["File", "Path", "For"], o3s.files.map((e) => [code(e.name), code(e.target), text(e.description)])),
+      "",
+    )
+  }
+
+  if (extensions.length) {
+    page.push(
+      "### VS Code",
+      "",
+      "The extensions it installs:",
+      "",
+      ...extensions.map((e) => `- [${code(e)}](https://marketplace.visualstudio.com/items?itemName=${e})`),
       "",
     )
   }
