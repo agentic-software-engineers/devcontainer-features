@@ -3,7 +3,7 @@
     "image": "ubuntu:24.04",
     "features": {
       "gh": {
-        "version": "2.104.0"
+        "version": "2.105.0"
       }
     }
   },
