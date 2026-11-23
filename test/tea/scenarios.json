@@ -1,4 +1,12 @@
 {
+  "minor_line": {
+    "image": "ubuntu:24.04",
+    "features": {
+      "tea": {
+        "version": "0.15"
+      }
+    }
+  },
   "pinned_version": {
     "image": "ubuntu:24.04",
     "features": {
