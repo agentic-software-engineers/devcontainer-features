@@ -1,5 +1,5 @@
 // Writes one docs page per feature from src/<id>/devcontainer-feature.json into
-// docs/content/features, plus an index with every feature. The docs site runs it before copying
+// docs/content/features, plus an index listing every feature. The docs site runs it before copying
 // docs/content.
 import { mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from "node:fs"
 
@@ -102,15 +102,15 @@ writeFileSync(
   [
     "---",
     "title: Features",
-    "description: Every feature with its image and what it installs.",
+    "description: Every feature and what it installs.",
     "---",
     "",
     table(
-      ["Feature", "Description", "Image"],
-      features.map((f) => [`[${text(f.name)}](/docs/devcontainer-features/features/${f.id})`, text(f.description), code(`${registry}/${f.id}`)]),
+      ["Feature", "Description"],
+      features.map((f) => [`[${text(f.name)}](/docs/devcontainer-features/features/${f.id})`, text(f.description)]),
     ),
     "",
   ].join("\n"),
 )
 
-writeFileSync(`${out}/meta.json`, `${JSON.stringify({ title: "Features", pages: ["index", ...features.map((f) => f.id)] }, null, 2)}\n`)
+writeFileSync(`${out}/meta.json`, `${JSON.stringify({ title: "Features", pages: features.map((f) => f.id) }, null, 2)}\n`)
