@@ -1,4 +1,12 @@
 {
+  "minor_line": {
+    "image": "ubuntu:24.04",
+    "features": {
+      "gh": {
+        "version": "2.104"
+      }
+    }
+  },
   "pinned_version": {
     "image": "ubuntu:24.04",
     "features": {
