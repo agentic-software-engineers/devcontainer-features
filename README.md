@@ -4,6 +4,7 @@
   <img src="https://cdn.simpleicons.org/claude" alt="Claude Code CLI" title="Claude Code CLI" height="48">
   <img src="https://cdn.simpleicons.org/docker" alt="Docker in Docker" title="Docker in Docker" height="48">
   <img src="https://cdn.simpleicons.org/github" alt="gh (GitHub CLI)" title="gh (GitHub CLI)" height="48">
+  <img src="https://cdn.simpleicons.org/gitlab" alt="glab (GitLab CLI)" title="glab (GitLab CLI)" height="48">
   <img src="https://cdn.simpleicons.org/go" alt="Go" title="Go" height="48">
   <img src="https://cdn.simpleicons.org/googlechrome" alt="Headless Chrome" title="Headless Chrome" height="48">
   <img src="https://cdn.simpleicons.org/kubernetes" alt="kind (Kubernetes in Docker)" title="kind (Kubernetes in Docker)" height="48">
@@ -22,6 +23,7 @@
 | **Codex CLI** | OpenAI's official command-line tool for agentic coding with Codex. | `ghcr.io/hansehart/devcontainer-features/codex` |
 | **Docker in Docker** | A rootless Docker engine for building and running containers inside the dev container. | `ghcr.io/hansehart/devcontainer-features/docker-in-docker` |
 | **gh (GitHub CLI)** | GitHub's official command-line tool for issues, pull requests and releases. | `ghcr.io/hansehart/devcontainer-features/gh` |
+| **glab (GitLab CLI)** | GitLab's official command-line tool for issues, merge requests and releases. | `ghcr.io/hansehart/devcontainer-features/glab` |
 | **Go** | The Go programming language toolchain, with go and gofmt for building and formatting code. | `ghcr.io/hansehart/devcontainer-features/go` |
 | **Headless Chrome** | A headless Chrome build for browser automation and rendering. | `ghcr.io/hansehart/devcontainer-features/headless-chrome` |
 | **kind (Kubernetes in Docker)** | A tool for running local Kubernetes clusters in Docker containers, with kubectl for driving them. | `ghcr.io/hansehart/devcontainer-features/kind` |
