@@ -8,7 +8,7 @@
     "version": {
       "type": "string",
       "default": "latest",
-      "description": "Engine channel (latest) or a version (major, major.minor or major.minor.patch)."
+      "description": "Engine channel (latest), a release line (major or major.minor), or an exact version (major.minor.patch)."
     },
     "stateDir": {
       "type": "string",
@@ -18,12 +18,12 @@
     "buildxVersion": {
       "type": "string",
       "default": "latest",
-      "description": "Buildx plugin channel (latest) or a version (major, major.minor or major.minor.patch)."
+      "description": "Buildx plugin channel (latest), a release line (major or major.minor), or an exact version (major.minor.patch)."
     },
     "composeVersion": {
       "type": "string",
       "default": "latest",
-      "description": "Compose plugin channel (latest) or a version (major, major.minor or major.minor.patch)."
+      "description": "Compose plugin channel (latest), a release line (major or major.minor), or an exact version (major.minor.patch)."
     }
   },
   "entrypoint": "/usr/local/libexec/docker-in-docker/docker-init.sh",
