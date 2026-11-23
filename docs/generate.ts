@@ -63,10 +63,10 @@ for (const f of features) {
     )
   }
 
-  page.push("", "## Customizations", "", "### Open Secure Software Suite", "")
-  if (!o3s.hosts?.length && !o3s.env?.length && !o3s.files?.length) {
-    page.push("This feature adds nothing to the o3s defaults.")
-  }
+  // each customization shows only when the feature sets it, the section only when one does
+  const hasO3s = Boolean(o3s.hosts?.length || o3s.env?.length || o3s.files?.length)
+  if (hasO3s || extensions.length) page.push("", "## Customizations", "")
+  if (hasO3s) page.push("### Open Secure Software Suite", "")
   if (o3s.hosts?.length) {
     page.push(
       "The hosts the tool reaches:",
