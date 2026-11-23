@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.0](https://github.com/agentic-software-engineers/devcontainer-features/compare/age-1.3.0...age-1.4.0) (2026-11-23)
+
+
+### Features
+
+* **age:** accept a release line as the version ([#251](https://github.com/agentic-software-engineers/devcontainer-features/issues/251)) ([50ac148](https://github.com/agentic-software-engineers/devcontainer-features/commit/50ac148c433ee0a7788584ce78a831ffedc3aeca))
+
 ## [1.3.0](https://github.com/hansehart/devcontainer-features/compare/age-1.2.0...age-1.3.0) (2026-11-18)
 
 

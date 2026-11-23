@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.0](https://github.com/agentic-software-engineers/devcontainer-features/compare/gh-1.1.0...gh-1.2.0) (2026-11-23)
+
+
+### Features
+
+* **gh:** accept a release line as the version ([#245](https://github.com/agentic-software-engineers/devcontainer-features/issues/245)) ([b94728d](https://github.com/agentic-software-engineers/devcontainer-features/commit/b94728dfa9fd6ae20a2bbb12a17547aeef21209b))
+
 ## [1.1.0](https://github.com/hansehart/devcontainer-features/compare/gh-1.0.0...gh-1.1.0) (2026-11-18)
 
 

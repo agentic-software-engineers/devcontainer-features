@@ -1,5 +1,13 @@
 # Changelog
 
+## [5.0.1](https://github.com/agentic-software-engineers/devcontainer-features/compare/docker-in-docker-5.0.0...docker-in-docker-5.0.1) (2026-11-23)
+
+
+### Bug Fixes
+
+* **docker-in-docker:** name the feature after its program ([#261](https://github.com/agentic-software-engineers/devcontainer-features/issues/261)) ([c113031](https://github.com/agentic-software-engineers/devcontainer-features/commit/c113031f0fd6000e5da5b29f9f65c122893b5a79))
+* **docker-in-docker:** word the version options like the other features ([#253](https://github.com/agentic-software-engineers/devcontainer-features/issues/253)) ([fa1a9d6](https://github.com/agentic-software-engineers/devcontainer-features/commit/fa1a9d69027265171ee15c19a0db03ec2055de9c))
+
 ## [5.0.0](https://github.com/hansehart/devcontainer-features/compare/docker-in-docker-4.2.0...docker-in-docker-5.0.0) (2026-11-19)
 
 

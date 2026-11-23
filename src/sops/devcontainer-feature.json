@@ -1,6 +1,6 @@
 {
   "id": "sops",
-  "version": "2.3.0",
+  "version": "2.4.0",
   "name": "sops",
   "description": "A tool for encrypting, editing and injecting secrets in config files.",
   "documentationURL": "https://github.com/hansehart/devcontainer-features/tree/main/src/sops",
