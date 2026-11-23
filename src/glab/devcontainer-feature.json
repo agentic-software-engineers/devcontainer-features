@@ -1,0 +1,51 @@
+{
+  "id": "glab",
+  "version": "1.0.0",
+  "name": "glab (GitLab CLI)",
+  "description": "GitLab's official command-line tool for issues, merge requests and releases.",
+  "documentationURL": "https://github.com/hansehart/devcontainer-features/tree/main/src/glab",
+  "options": {
+    "version": {
+      "type": "string",
+      "default": "latest",
+      "description": "Channel (latest) or an exact version (major.minor.patch)."
+    },
+    "stateDir": {
+      "type": "string",
+      "default": "",
+      "description": "If set, puts this feature's data at this path, which must be inside the remote user's home. Mount a volume there to persist it across rebuilds."
+    }
+  },
+  "customizations": {
+    "o3s": {
+      "hosts": [
+        {
+          "name": "gitlab.com",
+          "ports": [
+            443
+          ],
+          "secret": "GITLAB_TOKEN",
+          "description": "Sign-in and the REST and GraphQL APIs"
+        }
+      ],
+      "env": [
+        {
+          "name": "GLAB_SEND_TELEMETRY",
+          "value": "false",
+          "description": "With false, telemetry stays off"
+        },
+        {
+          "name": "GLAB_CHECK_UPDATE",
+          "value": "false",
+          "description": "With false, the daily release check stays off"
+        },
+        {
+          "name": "GLAB_CONFIG_DIR",
+          "value": "${stateDir}",
+          "description": "glab's config and sign-in in the state dir"
+        }
+      ]
+    }
+  },
+  "postCreateCommand": "/usr/local/libexec/glab/init.sh"
+}

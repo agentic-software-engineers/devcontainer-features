@@ -27,6 +27,7 @@
     "src/codex": { "component": "codex" },
     "src/docker-in-docker": { "component": "docker-in-docker" },
     "src/gh": { "component": "gh" },
+    "src/glab": { "component": "glab" },
     "src/go": { "component": "go" },
     "src/headless-chrome": { "component": "headless-chrome" },
     "src/kind": { "component": "kind" },

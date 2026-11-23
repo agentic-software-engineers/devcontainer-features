@@ -1,0 +1,19 @@
+{
+  "pinned_version": {
+    "image": "ubuntu:24.04",
+    "features": {
+      "glab": {
+        "version": "1.131.0"
+      }
+    }
+  },
+  "state_dir": {
+    "image": "ubuntu:24.04",
+    "remoteUser": "ubuntu",
+    "features": {
+      "glab": {
+        "stateDir": "/home/ubuntu/.local/state/glab"
+      }
+    }
+  }
+}

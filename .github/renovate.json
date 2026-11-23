@@ -129,6 +129,15 @@
     },
     {
       "customType": "regex",
+      "description": "Keep the pinned GitLab CLI release in its test on the newest release.",
+      "managerFilePatterns": ["/^test/glab/scenarios\\.json$/", "/^test/glab/pinned_version\\.sh$/"],
+      "matchStrings": ["(?:^|[^\\d.])(?<currentValue>\\d+\\.\\d+\\.\\d+)(?:[^\\d.]|$)"],
+      "datasourceTemplate": "gitlab-releases",
+      "depNameTemplate": "gitlab-org/cli",
+      "extractVersionTemplate": "^v(?<version>.+)$"
+    },
+    {
+      "customType": "regex",
       "description": "Keep the pinned Go release in its test on the newest release.",
       "managerFilePatterns": ["/^test/go/scenarios\\.json$/", "/^test/go/pinned_version\\.sh$/"],
       "matchStrings": ["(?:^|[^\\d.])(?<currentValue>\\d+\\.\\d+\\.\\d+)(?:[^\\d.]|$)"],

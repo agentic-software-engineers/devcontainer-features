@@ -17,6 +17,7 @@
         "docker-in-docker",
         "docs",
         "gh",
+        "glab",
         "go",
         "headless-chrome",
         "kind",
