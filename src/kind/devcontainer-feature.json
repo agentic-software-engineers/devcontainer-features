@@ -10,15 +10,15 @@
       "default": "latest",
       "description": "Channel (latest), a release line (major or major.minor), or an exact version (major.minor.patch)."
     },
-    "kubectlVersion": {
-      "type": "string",
-      "default": "latest",
-      "description": "kubectl channel (latest), a release line (major or major.minor), or an exact version (major.minor.patch)."
-    },
     "stateDir": {
       "type": "string",
       "default": "",
       "description": "If set, puts this feature's data at this path, which must be inside the remote user's home. Mount a volume there to persist it across rebuilds."
+    },
+    "kubectlVersion": {
+      "type": "string",
+      "default": "latest",
+      "description": "kubectl channel (latest), a release line (major or major.minor), or an exact version (major.minor.patch)."
     }
   },
   "customizations": {

@@ -2,7 +2,7 @@
 set -euo pipefail
 . "$(dirname "$0")/lib.sh"
 
-# Options (uppercased by the CLI): VERSION, KUBECTLVERSION, STATEDIR.
+# Options (uppercased by the CLI): VERSION, STATEDIR, KUBECTLVERSION.
 FEATURE=kind
 VERSION="$(option VERSION latest)"
 KUBECTL_VERSION="$(option KUBECTLVERSION latest)"
