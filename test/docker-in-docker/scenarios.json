@@ -6,7 +6,7 @@
       "docker-in-docker": {
         "version": "29.9.3",
         "buildxVersion": "0.38.1",
-        "composeVersion": "5.7.0"
+        "composeVersion": "5.7.2"
       }
     }
   },
