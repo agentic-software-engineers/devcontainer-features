@@ -15,5 +15,13 @@
         "stateDir": "/home/ubuntu/.local/state/claude-code"
       }
     }
+  },
+  "disable_nonessential_traffic": {
+    "image": "ubuntu:24.04",
+    "features": {
+      "claude-code": {
+        "disableNonessentialTraffic": true
+      }
+    }
   }
 }

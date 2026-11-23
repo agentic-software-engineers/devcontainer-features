@@ -18,6 +18,11 @@
       "type": "string",
       "default": "",
       "description": "If set, puts this feature's data at this path, which must be inside the remote user's home. Mount a volume there to persist it across rebuilds."
+    },
+    "disableNonessentialTraffic": {
+      "type": "boolean",
+      "default": false,
+      "description": "If true, keeps telemetry and other optional traffic off through CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC."
     }
   },
   "customizations": {
