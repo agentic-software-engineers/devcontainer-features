@@ -4,7 +4,7 @@ set -e
 # Import the test library
 source dev-container-features-test-lib
 
-NODE="22.23.5"
+NODE="26.13.1"
 NVM="0.41.0"
 
 check "node pinned to $NODE" bash -lc "node --version | grep -qwF 'v$NODE'"
