@@ -6,7 +6,7 @@ source dev-container-features-test-lib
 
 ENGINE="29.10.0"
 BUILDX="0.39.1"
-COMPOSE="5.7.2"
+COMPOSE="5.8.0"
 
 check "engine pinned to $ENGINE" bash -c "docker --version | grep -qwF '$ENGINE'"
 check "buildx pinned to $BUILDX" bash -c "docker buildx version | grep -qwF 'v$BUILDX'"
