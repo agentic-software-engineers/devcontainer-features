@@ -1,4 +1,12 @@
 {
+  "minor_line": {
+    "image": "ubuntu:24.04",
+    "features": {
+      "age": {
+        "version": "1.2"
+      }
+    }
+  },
   "pinned_version": {
     "image": "ubuntu:24.04",
     "features": {
