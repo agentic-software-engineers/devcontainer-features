@@ -1,0 +1,6 @@
+{
+  "title": "Dev Container Features",
+  "description": "Tools for any dev container",
+  "root": true,
+  "pages": ["index"]
+}

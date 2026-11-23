@@ -1,0 +1,36 @@
+---
+title: Dev Container Features
+description: Tools for any dev container, each installed the same way, pinned, verified and ready for o3s.
+---
+
+A [Dev Container Feature](https://containers.dev/implementors/features/) adds a tool to a dev container through one entry in `devcontainer.json`.
+This repository ships them for agents, languages and tools.
+
+```json title=".devcontainer/devcontainer.json"
+{
+  "image": "docker.io/library/ubuntu:24.04",
+  "remoteUser": "ubuntu",
+  "features": {
+    "ghcr.io/hansehart/devcontainer-features/claude-code:3": {},
+    "ghcr.io/hansehart/devcontainer-features/docker-in-docker:5": {},
+    "ghcr.io/hansehart/devcontainer-features/headless-chrome:1": {},
+    "ghcr.io/hansehart/devcontainer-features/latex:3": {
+      "scheme": "scheme-full"
+    }
+  }
+}
+```
+
+## One way for every feature
+
+Every feature runs through the same shared library, so what you learn about one holds for all of them.
+
+- **Versions:** `version` takes `latest`, a release line (`major` or `major.minor`) or an exact version. The feature resolves it to an exact release before installing and logs it. Companion programs have their own option, such as `nvmVersion` for Node.js.
+- **Verified downloads:** each feature declares how its download is checked: against published checksums, or, where a project publishes none, with the reason shown in the build log.
+- **State dir:** the optional `stateDir` puts a feature's data at a path inside your home. Mount a volume there and it persists across rebuilds.
+- **Standard layout:** files go where the Filesystem Hierarchy Standard puts them, so every feature lays out the same way.
+- **o3s metadata:** each feature lists in `customizations.o3s` the hosts its tool reaches, the variables that harden its defaults and the config files it reads, so [o3s](https://github.com/agentic-software-engineers/o3s) can allow exactly those.
+
+## Where they come from
+
+Each feature is published to `ghcr.io/hansehart/devcontainer-features/<id>`, tagged with its own version.

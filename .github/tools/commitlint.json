@@ -15,6 +15,7 @@
         "codex",
         "deps",
         "docker-in-docker",
+        "docs",
         "gh",
         "go",
         "headless-chrome",
