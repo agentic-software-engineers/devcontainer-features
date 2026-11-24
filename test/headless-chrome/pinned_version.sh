@@ -4,7 +4,7 @@ set -e
 # Import the test library
 source dev-container-features-test-lib
 
-check "pinned to 157.0.8103.38" bash -c "chrome-headless-shell --version | grep -qwF '157.0.8103.38'"
+check "pinned to 158.0.8127.88" bash -c "chrome-headless-shell --version | grep -qwF '158.0.8127.88'"
 
 # Report result
 reportResults
