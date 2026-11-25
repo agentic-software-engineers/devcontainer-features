@@ -4,7 +4,7 @@ set -e
 # Import the test library
 source dev-container-features-test-lib
 
-ENGINE="29.10.0"
+ENGINE="29.10.1"
 BUILDX="0.39.1"
 COMPOSE="5.8.0"
 
