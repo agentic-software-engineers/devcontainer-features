@@ -5,7 +5,7 @@ set -e
 source dev-container-features-test-lib
 
 PYTHON="3.15.2"
-UV="0.13.9"
+UV="0.13.10"
 
 check "python pinned to $PYTHON" bash -lc "python3 --version | grep -qwF '$PYTHON'"
 check "uv pinned to $UV" bash -lc "uv --version | grep -qwF '$UV'"
