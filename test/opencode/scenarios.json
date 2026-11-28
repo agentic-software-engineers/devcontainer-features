@@ -11,7 +11,7 @@
     "image": "ubuntu:24.04",
     "features": {
       "opencode": {
-        "version": "2.3.2"
+        "version": "2.4.1"
       }
     }
   },
